@@ -64,9 +64,6 @@ class IWusers_Api_User extends Zikula_Api {
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-        if ($filtre == '0') {
-            $filtre = '';
-        }
         $myJoin = array();
         $myJoin[] = array('join_table' => 'users',
             'join_field' => array('uid'),

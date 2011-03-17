@@ -1309,5 +1309,18 @@ class IWusers_Api_Admin extends Zikula_Api {
          * 
          */
     }
-
+    public function getlinks($args)
+    {
+	$inici = FormUtil::getPassedValue('inici', isset($args['inici']) ? $args['inici'] : null, 'POST');
+	$filtre = FormUtil::getPassedValue('filtre', isset($args['filtre']) ? $args['attached'] : 0, 'POST');
+	$campfiltre = FormUtil::getPassedValue('campfiltre', isset($args['campfiltre']) ? $args['campfiltre'] : 1, 'POST');
+	$numitems = FormUtil::getPassedValue('numitems', isset($args['numitems']) ? $args['numitems'] : 20, 'POST');
+        $links = array();
+        if (SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
+            $links[] = array('url' => ModUtil::url('IWusers', 'admin', 'newUser'), 'text' => $this->__('Create user'), 'id' => 'iwusers_newuser', 'class' => 'z-icon-es-user');
+            $links[] = array('url' => ModUtil::url('IWusers', 'admin', 'main'), 'text' => $this->__('Show the list of users'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-view');
+            $links[] = array('url' => ModUtil::url('IWusers', 'admin', 'config'), 'text' => $this->__('Configure the module'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-config');
+        }
+        return $links;
+    }
 }

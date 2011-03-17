@@ -1,102 +1,63 @@
-{include file="IWusers_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
-<div class="pn-admincontainer">
-	<div class="pn-adminpageicon">{img modname='core' src='filenew.gif' set='icons/large'}</div>
-	<h2>{gt text="Create user"}</h2>
-	<form  class="pn-adminform" enctype="multipart/form-data" method="post" name="usersList" action="{modurl modname="IWusers" type="admin" func="create"}">
-		<input type="hidden" name="authid" value="{secgenauthkey module="IWusers"}" />
-		<table width="100%">
-			<tr>
-				<td colspan="2">
-					<strong>{gt text="Data from the user"}</strong>:
-				</td>
-			</tr>
-			<tr>
-				<td width="150">
-					{gt text="Name"}
-				</td>
-				<td>
-					<input type="text" name="nom" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					{gt text="1st surname"}
-				</td>
-				<td>
-					<input type="text" name="cognom1" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					{gt text="2nd surname"}
-				</td>
-				<td>
-					<input type="text" name="cognom2" />
-				</td>
-			</tr>
-			{if $canChangeAvatar}
-				<tr>
-					<td>
-						{gt text="Avatar"}
-					</td>
-					<td>
-						<div>
-							<input type="file" name="avatar" size="30">
-						</div>
-						<div style="width: 200px; margin-top: 20px;" class="pn-informationmsg">
-							{gt text="The avatar image must be 90x120 px aproximately with the extensions jpg, gif or png"}
-						</div>
-					</td>
-				</tr>
-			{/if}
-			<tr>
-				<td colspan="2">
-					<strong>{gt text="Data Connection"}</strong>:
-				</td>
-			</tr>
-			<tr>
-				<td>
-					{gt text="User name"}*
-				</td>
-				<td>
-					<input type="text" name="uname" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					{gt text="Password"}*
-				</td>
-				<td>
-					<input type="text" name="pass" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					{gt text="E-mail"}*
-				</td>
-				<td>
-					<input type="text" name="email" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					{gt text="Initial groups"}*
-				</td>
-				<td>
-					{foreach item=group from=$groups}
-						<div><input type="checkbox" name="group[]" {if $defaultgroup eq $group.name}checked onchange="this.checked=true"{/if} value="{$group.id}" />{$group.name}</div>
-					{/foreach}
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					{gt text="The fields with * are required"}
-				</td>
-			</tr>
-		</table>
-		<div style="text-align: center;">
-			{button src='button_ok.gif' set='icons/small' __alt="Create user" __title="Create user"}{gt text="Create user"}
-			<a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
-		</div>
-	</form>
+{include file="IWusers_admin_menu.htm"}
+<div class="z-admincontainer">
+    <div class="z-adminpageicon">{img modname='core' src='filenew.png' set='icons/large'}</div>
+    <h2>{gt text="Create user"}</h2>
+    <form id="newUser" class="z-form" enctype="multipart/form-data" method="post" action="{modurl modname="IWusers" type="admin" func="create"}">
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWusers"}" />
+        <fieldset>
+            <legend>{gt text="Data from the user"}</legend>
+            <div class="z-formrow">
+                <label for="nom">{gt text="Name"}</label>
+                <input id="nom" name="nom" type="text" />
+            </div>
+            <div class="z-formrow">
+                <label for="cognom1">{gt text="1st surname"}</label>
+                <input id="cognom1" name="cognom1" type="text" />
+            </div>
+            <div class="z-formrow">
+                <label for="cognom2">{gt text="2nd surname"}</label>
+                <input id="cognom2" name="cognom2" type="text" />
+            </div>
+            <div class="z-formrow">
+                <label for="avatar">{gt text="Avatar"}</label>
+                <input id="avatar" name="avatar" type="file" />
+                <div class="z-informationmsg z-formnote">
+                    {gt text="The avatar image must be 90x120 px aproximately with the extensions jpg, gif or png"}
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>{gt text="Data Connection"}</legend>
+            <div class="z-formrow">
+                <label for="uname">{gt text="User name"} <span class="z-form-mandatory-flag"> *</span></label>
+                <input id="uname" name="uname" type="text" />
+            </div>
+            <div class="z-formrow">
+                <label for="pass">{gt text="Password"} <span class="z-form-mandatory-flag"> *</span></label>
+                <input id="pass" name="pass" type="text" />
+            </div>
+            <div class="z-formrow">
+                <label for="email">{gt text="E-mail"} <span class="z-form-mandatory-flag"> *</span></label>
+                <input id="email" name="email" type="text" />
+            </div>
+            <div class="z-formrow">
+                <label for="group">{gt text="Initial groups"} <span class="z-form-mandatory-flag"> *</span></label>
+                {foreach item=group from=$groups}
+                <div class="z-formnote">
+                    <input type="checkbox" name="group[]" {if $defaultgroup eq $group.name}checked onchange="this.checked=true"{/if} value="{$group.id}" />
+                    {$group.name}
+                </div>
+                {/foreach}
+            </div>
+        </fieldset>
+        {gt text="The fields with * are required"}
+        <div class="z-center">
+            <div class="z-button">
+                <a title="Create user" onClick="javascript:forms['newUser'].submit()">{img modname='core' src='button_ok.png' set='icons/small' __alt="Create user" __title="Create user"} {gt text="Create user"}</a>
+            </div>
+            <div class="z-button">
+                <a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
+            </div>
+        </div>
+    </form>
 </div>

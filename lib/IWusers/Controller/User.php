@@ -53,26 +53,6 @@ class IWusers_Controller_User extends Zikula_Controller {
     }
 
     /**
-     * Show the module information
-     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
-     * @return	The module information
-     */
-    public function module() {
-
-        // Security check
-        if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
-        }
-        // Create output object
-        $view = Zikula_View::getInstance('IWusers', false);
-        $module = ModUtil::func('IWmain', 'user', 'module_info',
-                        array('module_name' => 'IWusers',
-                            'type' => 'user'));
-        $view->assign('module', $module);
-        return $view->fetch('IWusers_user_module.htm');
-    }
-
-    /**
      * Show the list of members in a group
      * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
      * @param:	The group identity

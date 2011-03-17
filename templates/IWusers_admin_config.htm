@@ -1,66 +1,71 @@
 {include file="IWusers_admin_menu.htm"}
-<div class="pn-admincontainer">
-	<div class="pn-adminpageicon">{img modname='core' src='package_settings.gif' set='icons/large' __alt=$templatetitle}</div>
-	<div style="height:5px;">&nbsp;</div>
-	<h2>{gt text="Configure the module"}</h2>
-	<form  class="pn-adminform" enctype="application/x-www-form-urlencoded" method="post" name="config" id="config" action="{modurl modname="IWusers" type="admin" func="updateConf"}">
-		<input type="hidden" name="authid" value="{secgenauthkey module="IWusers"}" />
-		<div class="pn-adminformrow">
-			<label for="jclicJarBase">{gt text="Set contacts list available"}:</label>
-			<input type="checkbox" name="friendsSystemAvailable" {if $friendsSystemAvailable eq 1}checked{/if} value="1" />
-		</div>
-		<div class="pn-adminformrow">
-			<label for="invisibleGroupsInList">{gt text="Invisible groups in users search"}:</label>
-		</div>
-		<div class="pn-adminformrow">
-			{foreach item=group from=$groupsArray}
-				<input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
-			{/foreach}
-		</div>
-		{*}
-		<div class="pn-adminformrow">
-			<label for="jclicJarBase">{gt text="Change avatar"}:</label>
-			<input type="checkbox" name="friendsSystemAvailable" {if $friendsSystemAvailable eq 1}checked{/if} value="1" />
-		</div>
-		<div class="pn-adminformrow">
-			<label for="invisibleGroupsInList">{gt text="Users policy"}:</label>
-		</div>
-		<div class="pn-adminformrow">
-			<table>
-				<th>{gt text="Invisible groups in users search"}</th>
-				<th>{gt text="Impossible to change mail address"}</th>
-				<th>{gt text="Impossible to change password"}</th>
-				<th>{gt text="Avatar change needs validation"}</th>
-				<tr>
-					<td>
-						{foreach item=group from=$groupsArray}
-							<input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
-						{/foreach}
-					</td>
-					<td>
-						{foreach item=group from=$groupsArray}
-							<input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
-						{/foreach}
-					</td>
-					<td>
-						{foreach item=group from=$groupsArray}
-							<input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
-						{/foreach}
-					</td>
-					<td>
-						{foreach item=group from=$groupsArray}
-							<input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
-						{/foreach}
-					</td>
-				</tr>
-			</table>
-		</div>
-		{*}
-		<div style="text-align: center;">
-			<a title="{gt text="Modify the configuration"}" onClick="javascript:sendConfig()" style="cursor:pointer;";>{img modname='core' src='button_ok.gif' set='icons/small'}</a> {gt text="Modify the configuration"}
-		</div>
-	</form>
-	<div>
-		<a href="{modurl modname=IWusers type=admin func=module}">{gt text="About this module"}</a>
-	</div>
+<div class="z-admincontainer">
+    <div class="z-adminpageicon">{img modname='core' src='configure.png' set='icons/large'}</div>
+    <h2>{gt text="Configure the module"}</h2>
+    <form  class="z-form" enctype="application/x-www-form-urlencoded" method="post" name="config" id="config" action="{modurl modname="IWusers" type="admin" func="updateConf"}">
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWusers"}" />
+        <div class="z-formrow">
+            <label for="jclicJarBase">{gt text="Set contacts list available"}:</label>
+            <input type="checkbox" name="friendsSystemAvailable" {if $friendsSystemAvailable eq 1}checked{/if} value="1" />
+        </div>
+        <div class="z-formrow">
+            <label for="invisibleGroupsInList">{gt text="Invisible groups in users search"}:</label>
+            <div class="z-formnote">
+                {foreach item=group from=$groupsArray}
+                <input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
+                {/foreach}
+            </div>
+        </div>
+        {*}
+        <div class="z-formrow">
+            <label for="jclicJarBase">{gt text="Change avatar"}:</label>
+            <input type="checkbox" name="friendsSystemAvailable" {if $friendsSystemAvailable eq 1}checked{/if} value="1" />
+        </div>
+        <div class="z-formrow">
+            <label for="invisibleGroupsInList">{gt text="Users policy"}:</label>
+        </div>
+        <div class="z-formrow">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{gt text="Invisible groups in users search"}</th>
+                        <th>{gt text="Impossible to change mail address"}</th>
+                        <th>{gt text="Impossible to change password"}</th>
+                        <th>{gt text="Avatar change needs validation"}</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        {foreach item=group from=$groupsArray}
+                        <input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
+                        {/foreach}
+                    </td>
+                    <td>
+                        {foreach item=group from=$groupsArray}
+                        <input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
+                        {/foreach}
+                    </td>
+                    <td>
+                        {foreach item=group from=$groupsArray}
+                        <input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
+                        {/foreach}
+                    </td>
+                    <td>
+                        {foreach item=group from=$groupsArray}
+                        <input type="checkbox" name="groups[{$group.id}]" value="{$group.id}" {if $group.checked}checked{/if} />{$group.name} <br />
+                        {/foreach}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {*}
+        <div class="z-center">
+            <div class="z-button">
+                <a title="{gt text="Modify the configuration"}" onClick="javascript:sendConfig()" style="cursor:pointer;";>{img modname='core' src='button_ok.png' set='icons/small'} {gt text="Modify the configuration"}</a>
+            </div>
+        </div>
+    </form>
+    <div>
+        <a href="{modurl modname=IWusers type=admin func=module}">{gt text="About this module"}</a>
+    </div>
 </div>

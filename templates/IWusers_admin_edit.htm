@@ -46,7 +46,7 @@
 								{if $user.photo neq ''}
 									<img src="{modurl modname=IWmain type=user func=getPhoto fileName=$user.photo}" />
 								{else}
-									{img modname='IWmain' src='noImage.jpg' set='pnimages'}
+									{img modname='IWmain' src='noImage.jpg' set='images'}
 								{/if}
 								<div>
 									<input type="checkbox" name="deleteAvatar[{$user.uid}]" value="1" />{gt text="Delete avatar"}

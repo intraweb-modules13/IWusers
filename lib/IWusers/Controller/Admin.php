@@ -18,6 +18,7 @@ class IWusers_Controller_Admin extends Zikula_Controller {
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError();
         }
+        $usersArray = array();
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         if ($inici == null) {
             $inici = ModUtil::func('IWmain', 'user', 'userInitVar',
@@ -214,27 +215,6 @@ class IWusers_Controller_Admin extends Zikula_Controller {
         $view->assign('users', $usersArray);
         $view->assign('usersNumber', $usersNumber);
         return $view->fetch('IWusers_admin_main.htm');
-    }
-
-    /**
-     * Show the module information
-     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
-     * @return	The module information
-     */
-    public function module() {
-
-        // Security check
-        if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
-        }
-
-        // Create output object
-        $view = Zikula_View::getInstance('IWusers', false);
-
-        $module = ModUtil::func('IWmain', 'user', 'module_info', array('module_name' => 'IWusers', 'type' => 'admin'));
-
-        $view->assign('module', $module);
-        return $view->fetch('IWusers_admin_module.htm');
     }
 
     /**
@@ -449,21 +429,11 @@ class IWusers_Controller_Admin extends Zikula_Controller {
             }
         }
 
-        //Check if the temp folder exists
-        if (!file_exists(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWmain', 'tempFolder')) || ModUtil::getVar('IWmain', 'tempFolder') == '') {
-            $canChangeAvatar = false;
-        } else {
-            if (!is_writeable(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWmain', 'tempFolder'))) {
-                $canChangeAvatar = false;
-            }
-        }
-
         // Create output object
         $view = Zikula_View::getInstance('IWusers', false);
-
         $view->assign('groups', $groups);
         $view->assign('defaultgroup', $defaultgroup);
-        $view->assign('canChangeAvatar', $canChangeAvatar);
+
 
         return $view->fetch('IWusers_admin_new.htm');
     }
@@ -893,7 +863,8 @@ class IWusers_Controller_Admin extends Zikula_Controller {
      * @return:	Return to admin main pager
      */
     public function import($args) {
-
+        die('es necessita import');
+/*
         $pas = FormUtil::getPassedValue('pas', isset($args['pas']) ? $args['pas'] : null, 'REQUEST');
         $subpas = FormUtil::getPassedValue('subpas', isset($args['subpas']) ? $args['subpas'] : null, 'REQUEST');
         $fitxer = FormUtil::getPassedValue('fitxer', isset($args['fitxer']) ? $args['fitxer'] : null, 'POST');
@@ -2197,6 +2168,8 @@ class IWusers_Controller_Admin extends Zikula_Controller {
 
         $view->assign('output', $output);
         return $view->fetch('IWusers_admin_import.htm');
+ * 
+ */
     }
 
     /*
@@ -2286,7 +2259,8 @@ class IWusers_Controller_Admin extends Zikula_Controller {
      */
 
     public function fitxer($args) {
-
+        die('es necessita fitxer');
+        /*
         //Agafem els parï¿œmetres per si se'ns retorna a la funciï¿œ desprï¿œs d'enviar les dades del formulari
         list($pas) = FormUtil::getPassedValue('pas');
         extract($args);
@@ -2349,6 +2323,8 @@ class IWusers_Controller_Admin extends Zikula_Controller {
         //Esborra el fitxer del servidor
         unlink($fitxer);
         exit;
+         * 
+         */
     }
 
     /*
