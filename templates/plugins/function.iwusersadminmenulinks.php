@@ -1,7 +1,7 @@
 <?php
 function smarty_function_iwusersadminmenulinks($params, &$smarty)
 {
-	$dom=ZLanguage::getModuleDomain('iw_users');
+	
 	$inici = FormUtil::getPassedValue('inici', isset($args['inici']) ? $args['inici'] : null, 'POST');
 	$filtre = FormUtil::getPassedValue('filtre', isset($args['filtre']) ? $args['attached'] : 0, 'POST');
 	$campfiltre = FormUtil::getPassedValue('campfiltre', isset($args['campfiltre']) ? $args['campfiltre'] : 1, 'POST');
@@ -23,24 +23,24 @@ function smarty_function_iwusersadminmenulinks($params, &$smarty)
 
 	$usersadminmenulinks = "<span class=\"" . $params['class'] . "\">" . $params['start'] . " ";
 
-	if (SecurityUtil::checkPermission('iw_users::', "::", ACCESS_ADMIN)) {
-		$usersadminmenulinks .= "<a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('iw_users', 'admin', 'new')) . "\">" . __('Create user',$dom) . "</a> " . $params['seperator'];
+	if (SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) {
+		$usersadminmenulinks .= "<a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWusers', 'admin', 'new')) . "\">" . __('Create user',$dom) . "</a> " . $params['seperator'];
 	}
 
-	if (SecurityUtil::checkPermission('iw_users::', "::", ACCESS_ADMIN)) {
-		$usersadminmenulinks .= " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('iw_users', 'admin', 'main')) . "\">" . __('Show the list of users',$dom) . "</a> " . $params['seperator'];
+	if (SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) {
+		$usersadminmenulinks .= " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWusers', 'admin', 'main')) . "\">" . __('Show the list of users',$dom) . "</a> " . $params['seperator'];
 	}
 
-	if (SecurityUtil::checkPermission('iw_users::', "::", ACCESS_ADMIN)) {
-		$usersadminmenulinks .= " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('iw_users', 'admin', 'import')) . "\">" . __('Import from a file',$dom) . "</a> " . $params['seperator'];
+	if (SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) {
+		$usersadminmenulinks .= " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWusers', 'admin', 'import')) . "\">" . __('Import from a file',$dom) . "</a> " . $params['seperator'];
 	}
 
-	if (SecurityUtil::checkPermission('iw_users::', "::", ACCESS_ADMIN)) {
-		$usersadminmenulinks .= " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('iw_users', 'admin', 'export')) . "\">" . __('Export to CSV',$dom) . "</a> " . $params['seperator'];
+	if (SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) {
+		$usersadminmenulinks .= " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWusers', 'admin', 'export')) . "\">" . __('Export to CSV',$dom) . "</a> " . $params['seperator'];
 	}
 
-	if (SecurityUtil::checkPermission('iw_users::', "::", ACCESS_ADMIN)) {
-		$usersadminmenulinks .= " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('iw_users', 'admin', 'config')) . "\">" . __('Configure the module',$dom) . "</a> ";
+	if (SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) {
+		$usersadminmenulinks .= " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWusers', 'admin', 'config')) . "\">" . __('Configure the module',$dom) . "</a> ";
 	}
 	
 	$usersadminmenulinks .= $params['end'] . "</span>\n";

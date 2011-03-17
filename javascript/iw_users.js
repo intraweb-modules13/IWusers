@@ -3,20 +3,20 @@ function send(value){
 	f=document.usersListOptions;
 	switch(value){
 		case 0:
-			f.action="index.php?module=iw_users&type=admin&func=edit";
+			f.action="index.php?module=IWusers&type=admin&func=edit";
 			break;
 		case 1:
-			f.action="index.php?module=iw_users&type=admin&func=delete";
+			f.action="index.php?module=IWusers&type=admin&func=delete";
 			break;
 		case 2:
-			f.action="index.php?module=iw_users&type=admin&func=editLogin";
+			f.action="index.php?module=IWusers&type=admin&func=editLogin";
 			break;
 	}
 	f.submit();
 }
 
 function addContact(fuid, gid){
-	var pars = "module=iw_users&func=addContact&gid=" + gid + "&fuid=" + fuid + "&action=add";
+	var pars = "module=IWusers&func=addContact&gid=" + gid + "&fuid=" + fuid + "&action=add";
 	$('img_' + fuid).src="images/ajax/circle-ball-dark-antialiased.gif";
 	var myAjax = new Ajax.Request("ajax.php", 
 	{
@@ -41,7 +41,7 @@ function addContact_failure(){
 }
 
 function delContact(fuid, gid){
-	var pars = "module=iw_users&func=addContact&gid=" + gid + "&fuid=" + fuid + "&action=delete";
+	var pars = "module=IWusers&func=addContact&gid=" + gid + "&fuid=" + fuid + "&action=delete";
 	$('img_' + fuid).src="images/ajax/circle-ball-dark-antialiased.gif";
 	var myAjax = new Ajax.Request("ajax.php", 
 	{
@@ -75,7 +75,7 @@ function sendConfig(){
 }
 
 function delUserGroup(uid, gid){
-	var pars = "module=iw_users&func=delUserGroup&uid=" + uid + "&gid=" + gid;
+	var pars = "module=IWusers&func=delUserGroup&uid=" + uid + "&gid=" + gid;
 	$('iconGroup_' + uid + '_' + gid).src="images/ajax/circle-ball-dark-antialiased.gif";
 	var myAjax = new Ajax.Request("ajax.php", 
 	{
@@ -100,7 +100,7 @@ function delUserGroup_failure(){
 }
 
 function addUserGroup(uid, gid){
-	var pars = "module=iw_users&func=addUserGroup&uid=" + uid;
+	var pars = "module=IWusers&func=addUserGroup&uid=" + uid;
 	Element.update('addGroup_' + uid, '<img src="images/ajax/circle-ball-dark-antialiased.gif">');
 	var myAjax = new Ajax.Request("ajax.php", 
 	{
@@ -125,7 +125,7 @@ function addUserGroup_failure(){
 }
 
 function addGroupProceed(uid, gid){
-	var pars = "module=iw_users&func=addGroupProceed&uid=" + uid + "&gid=" + gid;
+	var pars = "module=IWusers&func=addGroupProceed&uid=" + uid + "&gid=" + gid;
 	Element.update('addGroup_' + uid, '<img src="images/ajax/circle-ball-dark-antialiased.gif">');
 	var myAjax = new Ajax.Request("ajax.php", 
 	{

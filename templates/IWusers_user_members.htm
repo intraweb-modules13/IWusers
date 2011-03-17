@@ -1,4 +1,4 @@
-{include file="iw_users_user_menu.htm"}
+{include file="IWusers_user_menu.htm"}
 <h2>
 	{if $gid gt 0}
 		{gt text="List of users of the group"}: {$groupName}
@@ -11,7 +11,7 @@
 		<tr bgcolor="{cycle values="#ffffff, #eeeeee"}" id="row_{$member.uid}">
 			<td width="10">
 				{if $member.photo neq ''}
-					<img src="{modurl modname=iw_main type=user func=getPhoto fileName=$member.photo}" />
+					<img src="{modurl modname=IWmain type=user func=getPhoto fileName=$member.photo}" />
 				{else}
 					&nbsp;
 				{/if}

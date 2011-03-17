@@ -1,9 +1,9 @@
-{include file="iw_users_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
+{include file="IWusers_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
 <div class="pn-admincontainer">
 	<div class="pn-adminpageicon">{img modname='core' src='filenew.gif' set='icons/large'}</div>
 	<h2>{gt text="Create user"}</h2>
-	<form  class="pn-adminform" enctype="multipart/form-data" method="post" name="usersList" action="{modurl modname="iw_users" type="admin" func="create"}">
-		<input type="hidden" name="authid" value="{secgenauthkey module="iw_users"}" />
+	<form  class="pn-adminform" enctype="multipart/form-data" method="post" name="usersList" action="{modurl modname="IWusers" type="admin" func="create"}">
+		<input type="hidden" name="authid" value="{secgenauthkey module="IWusers"}" />
 		<table width="100%">
 			<tr>
 				<td colspan="2">
@@ -96,7 +96,7 @@
 		</table>
 		<div style="text-align: center;">
 			{button src='button_ok.gif' set='icons/small' __alt="Create user" __title="Create user"}{gt text="Create user"}
-			<a href="{modurl modname="iw_users" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
+			<a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
 		</div>
 	</form>
 </div>

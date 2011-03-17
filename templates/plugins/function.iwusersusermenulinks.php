@@ -1,7 +1,7 @@
 <?php
 function smarty_function_iwusersusermenulinks($params, &$smarty)
 {
-	$dom=ZLanguage::getModuleDomain('iw_users');
+	
 	// set some defaults
 	if (!isset($params['start'])) {
 		$params['start'] = '[';
@@ -16,14 +16,14 @@ function smarty_function_iwusersusermenulinks($params, &$smarty)
 		$params['class'] = 'pn-menuitem-title';
 	}
 	$usersusermenulinks = "<span class=\"" . $params['class'] . "\">" . $params['start'] . " ";
-	if (SecurityUtil::checkPermission('iw_users::', "::", ACCESS_READ)) {
-		$usersusermenulinks .= "<a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('iw_users', 'user', 'main')) . "\">" . __('Shows the groups I belong',$dom) . "</a> ";
+	if (SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ)) {
+		$usersusermenulinks .= "<a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWusers', 'user', 'main')) . "\">" . __('Shows the groups I belong',$dom) . "</a> ";
 	}
-	if (SecurityUtil::checkPermission('iw_users::', "::", ACCESS_COMMENT)) {
-		$usersusermenulinks .= $params['seperator'] . " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('iw_users', 'user', 'main', array('all' => 1))) . "\">" . __('Show all the groups',$dom) . "</a> ";
+	if (SecurityUtil::checkPermission('IWusers::', "::", ACCESS_COMMENT)) {
+		$usersusermenulinks .= $params['seperator'] . " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWusers', 'user', 'main', array('all' => 1))) . "\">" . __('Show all the groups',$dom) . "</a> ";
 	}
-	if (SecurityUtil::checkPermission('iw_users::', "::", ACCESS_READ) && ModUtil::getVar('iw_users', 'friendsSystemAvailable') == 1) {
-		$usersusermenulinks .= $params['seperator'] . " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('iw_users', 'user', 'members', array('gid' => -1))) . "\">" . __('Show contacts\' list',$dom) . "</a> ";
+	if (SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ) && ModUtil::getVar('IWusers', 'friendsSystemAvailable') == 1) {
+		$usersusermenulinks .= $params['seperator'] . " <a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWusers', 'user', 'members', array('gid' => -1))) . "\">" . __('Show contacts\' list',$dom) . "</a> ";
 	}
 	$usersusermenulinks .= $params['end'] . "</span>\n";
 	return $usersusermenulinks;

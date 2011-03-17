@@ -1,9 +1,9 @@
-{include file="iw_users_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
+{include file="IWusers_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
 <div class="pn-admincontainer">
 	<div class="pn-adminpageicon">{img modname='core' src='edit.gif' set='icons/large'}</div>
 	<h2>{gt text="Edit the users"}</h2>
-	<form  class="pn-adminform" enctype="multipart/form-data" method="post" name="usersList" action="{modurl modname="iw_users" type="admin" func="update"}">
-		<input type="hidden" name="authid" value="{secgenauthkey module="iw_users"}" />
+	<form  class="pn-adminform" enctype="multipart/form-data" method="post" name="usersList" action="{modurl modname="IWusers" type="admin" func="update"}">
+		<input type="hidden" name="authid" value="{secgenauthkey module="IWusers"}" />
 		{foreach item=user from=$users name=avatar}
 			<input type="hidden" name="uid[]" value="{$user.uid}" />
 			<table width="100%">
@@ -44,9 +44,9 @@
 						<td>
 							<div style="float: left;">
 								{if $user.photo neq ''}
-									<img src="{modurl modname=iw_main type=user func=getPhoto fileName=$user.photo}" />
+									<img src="{modurl modname=IWmain type=user func=getPhoto fileName=$user.photo}" />
 								{else}
-									{img modname='iw_main' src='noImage.jpg' set='pnimages'}
+									{img modname='IWmain' src='noImage.jpg' set='pnimages'}
 								{/if}
 								<div>
 									<input type="checkbox" name="deleteAvatar[{$user.uid}]" value="1" />{gt text="Delete avatar"}
@@ -69,7 +69,7 @@
 		{/foreach}
 		<div style="text-align: center;">
 			{button src='button_ok.gif' set='icons/small' __alt="Edit" __title="Edit"}{gt text="Edit"}
-			<a href="{modurl modname="iw_users" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
+			<a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
 		</div>
 	</form>
 </div>

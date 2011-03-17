@@ -1,4 +1,4 @@
-{include file="iw_users_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
+{include file="IWusers_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
 <div class="pn-admincontainer">
 	<div class="pn-adminpageicon">{img modname='core' src='editdelete.gif' set='icons/large'}</div>
 	<h2>{gt text="Delete users"}</h2>
@@ -12,8 +12,8 @@
 
 
 
-	<form  class="pn-adminform" enctype="application/x-www-form-urlencoded" method="post" name="usersList" action="{modurl modname="iw_users" type="admin" func="delete"}">
-		<input type="hidden" name="authid" value="{secgenauthkey module="iw_users"}" />
+	<form  class="pn-adminform" enctype="application/x-www-form-urlencoded" method="post" name="usersList" action="{modurl modname="IWusers" type="admin" func="delete"}">
+		<input type="hidden" name="authid" value="{secgenauthkey module="IWusers"}" />
 		<input type="hidden" name="confirmation" value="1" />
 		<ul>
 			{foreach item=user from=$users}
@@ -27,7 +27,7 @@
 		</div>
 		<div style="text-align: center;">
 			{button src='button_ok.gif' set='icons/small' __alt="Delete users" __title="Delete users"}{gt text="Delete users"}
-			<a href="{modurl modname="iw_users" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
+			<a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
 		</div>
 	</form>
 </div>

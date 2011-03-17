@@ -1,4 +1,4 @@
-{include file="iw_users_user_menu.htm"}
+{include file="IWusers_user_menu.htm"}
 <h2>
 	{if $all}
 		{gt text="All the groups"}
@@ -11,11 +11,11 @@
 	<th>{gt text="N. components"}</th>
 	{foreach item=group from=$groups}
 		<tr bgcolor="{cycle values="#ffffff, #eeeeee"}">
-			<td><a href="{modurl modname=iw_users type=user func=members gid=$group.gid}">{$group.name}</a></td>
+			<td><a href="{modurl modname=IWusers type=user func=members gid=$group.gid}">{$group.name}</a></td>
 			<td align="right">{$group.members}</td>
 		</tr>
 	{/foreach}
 </table>
 <div>
-	<a href="{modurl modname=iw_users type=user func=module}">{gt text="About this module"}</a>
+	<a href="{modurl modname=IWusers type=user func=module}">{gt text="About this module"}</a>
 </div>

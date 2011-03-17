@@ -90,8 +90,8 @@ msgid "Error! Sorry! Deletion attempt failed."
 msgstr "L'intent d'esborrament ha fallat"
 
 #: pninit.php:25
-msgid "Module iw_main is needed. You have to install the iw_main module before installing it."
-msgstr "El mòdul iw_main ha d'estar instal·lat. Instal·leu-lo per poder instal·lar aquest mòdul."
+msgid "Module IWmain is needed. You have to install the IWmain module before installing it."
+msgstr "El mòdul IWmain ha d'estar instal·lat. Instal·leu-lo per poder instal·lar aquest mòdul."
 
 #: pnuser.php:59
 #: pnuser.php:81
@@ -138,8 +138,8 @@ msgid "Not authorized to manage users."
 msgstr "No teniu autorització per administrar els usuaris/àries."
 
 #: pntemplates/plugins/function.iwusersadminmenulinks.php:27
-#: pntemplates/iw_users_admin_new.htm:4
-#: pntemplates/iw_users_admin_new.htm:98
+#: pntemplates/IWusers_admin_new.htm:4
+#: pntemplates/IWusers_admin_new.htm:98
 msgid "Create user"
 msgstr "Crea un usuari/ària"
 
@@ -148,7 +148,7 @@ msgid "Show the list of users"
 msgstr "Mostra la llista d'usuaris"
 
 #: pntemplates/plugins/function.iwusersadminmenulinks.php:35
-#: pntemplates/iw_users_admin_import.htm:4
+#: pntemplates/IWusers_admin_import.htm:4
 msgid "Import from a file"
 msgstr "Importa des d'un fitxer"
 
@@ -157,7 +157,7 @@ msgid "Export to CSV"
 msgstr "Exporta a un fitxer CSV"
 
 #: pntemplates/plugins/function.iwusersadminmenulinks.php:43
-#: pntemplates/iw_users_admin_config.htm:5
+#: pntemplates/IWusers_admin_config.htm:5
 msgid "Configure the module"
 msgstr "Configura el mòdul"
 
@@ -174,8 +174,8 @@ msgid "Show contacts' list"
 msgstr "Mostra la llista de contactes"
 
 #: pnadmin.php:172
-#: pntemplates/iw_users_admin_main.htm:59
-#: pntemplates/iw_users_admin_new.htm:59
+#: pntemplates/IWusers_admin_main.htm:59
+#: pntemplates/IWusers_admin_new.htm:59
 msgid "User name"
 msgstr "Nom d'usuari"
 
@@ -183,9 +183,9 @@ msgstr "Nom d'usuari"
 #: pnadmin.php:1418
 #: pnadmin.php:1445
 #: pnadmin.php:1587
-#: pntemplates/iw_users_admin_main.htm:60
-#: pntemplates/iw_users_admin_edit.htm:17
-#: pntemplates/iw_users_admin_new.htm:15
+#: pntemplates/IWusers_admin_main.htm:60
+#: pntemplates/IWusers_admin_edit.htm:17
+#: pntemplates/IWusers_admin_new.htm:15
 msgid "Name"
 msgstr "Nom"
 
@@ -193,9 +193,9 @@ msgstr "Nom"
 #: pnadmin.php:1421
 #: pnadmin.php:1448
 #: pnadmin.php:1588
-#: pntemplates/iw_users_admin_main.htm:61
-#: pntemplates/iw_users_admin_edit.htm:25
-#: pntemplates/iw_users_admin_new.htm:23
+#: pntemplates/IWusers_admin_main.htm:61
+#: pntemplates/IWusers_admin_edit.htm:25
+#: pntemplates/IWusers_admin_new.htm:23
 msgid "1st surname"
 msgstr "1r cognom"
 
@@ -203,9 +203,9 @@ msgstr "1r cognom"
 #: pnadmin.php:1424
 #: pnadmin.php:1451
 #: pnadmin.php:1589
-#: pntemplates/iw_users_admin_main.htm:62
-#: pntemplates/iw_users_admin_edit.htm:33
-#: pntemplates/iw_users_admin_new.htm:31
+#: pntemplates/IWusers_admin_main.htm:62
+#: pntemplates/IWusers_admin_edit.htm:33
+#: pntemplates/IWusers_admin_new.htm:31
 msgid "2nd surname"
 msgstr "2n cognom"
 
@@ -252,7 +252,7 @@ msgstr "No has triat el grup inicial de l'usuari/ària"
 #: pnadmin.php:2104
 #: pnadmin.php:2243
 #: pnadmin.php:2395
-#: pntemplates/iw_users_admin_editLogin.htm:17
+#: pntemplates/IWusers_admin_editLogin.htm:17
 msgid "Username"
 msgstr "El nom d'usuari/ària"
 
@@ -270,8 +270,8 @@ msgid "There was an error in the creation of the user."
 msgstr "S'ha produït un error en la creació de l'usuari/ària."
 
 #: pnadmin.php:548
-#: pntemplates/iw_users_admin_menu.htm:4
-#: pntemplates/iw_users_user_menu.htm:3
+#: pntemplates/IWusers_admin_menu.htm:4
+#: pntemplates/IWusers_user_menu.htm:3
 msgid "Users"
 msgstr "Usuaris"
 
@@ -304,8 +304,8 @@ msgid "The user or users have been deleted"
 msgstr "L'usuari/ària o els usuaris han estat esborrats"
 
 #: pnadmin.php:835
-msgid "An error occurred while creating the data file. Checks from the global configuration of the module (iw_main), the temporary directory exists."
-msgstr "S'ha produït un error en la creació del fitxer de dades. Comprova, des de la configuració del mòdul global (iw_main), que el directori temporal existeix."
+msgid "An error occurred while creating the data file. Checks from the global configuration of the module (IWmain), the temporary directory exists."
+msgstr "S'ha produït un error en la creació del fitxer de dades. Comprova, des de la configuració del mòdul global (IWmain), que el directori temporal existeix."
 
 #: pnadmin.php:1160
 #: pnadmin.php:1323
@@ -592,7 +592,7 @@ msgstr "Tria l'acció que vols dur a terme:"
 #: pnadmin.php:2010
 #: pnadmin.php:2029
 #: pnadmin.php:2053
-#: pntemplates/iw_users_admin_import.htm:74
+#: pntemplates/IWusers_admin_import.htm:74
 msgid "Registration "
 msgstr " registre/s"
 
@@ -631,8 +631,8 @@ msgstr "Dades de connexió dels nous usuaris/àries creats/des"
 
 #: pnadmin.php:2109
 #: pnadmin.php:2243
-#: pntemplates/iw_users_admin_editLogin.htm:25
-#: pntemplates/iw_users_admin_new.htm:67
+#: pntemplates/IWusers_admin_editLogin.htm:25
+#: pntemplates/IWusers_admin_new.htm:67
 msgid "Password"
 msgstr "Contrasenya"
 
@@ -661,294 +661,294 @@ msgid "Extra users"
 msgstr "Usuaris Extra"
 
 #: pnversion.php:13
-msgid "iw_users"
-msgstr "iw_users"
+msgid "IWusers"
+msgstr "IWusers"
 
-#: pntemplates/iw_users_admin_pager.htm:1
+#: pntemplates/IWusers_admin_pager.htm:1
 msgid "Page"
 msgstr "Pàgina"
 
-#: pntemplates/iw_users_admin_main.htm:4
+#: pntemplates/IWusers_admin_main.htm:4
 msgid "List of users"
 msgstr "Llista d'usuaris"
 
-#: pntemplates/iw_users_admin_main.htm:24
-#: pntemplates/iw_users_admin_main.htm:27
+#: pntemplates/IWusers_admin_main.htm:24
+#: pntemplates/IWusers_admin_main.htm:27
 msgid "All"
 msgstr "Tots"
 
-#: pntemplates/iw_users_admin_main.htm:33
+#: pntemplates/IWusers_admin_main.htm:33
 msgid "N. records"
 msgstr "N. registres"
 
-#: pntemplates/iw_users_admin_main.htm:41
+#: pntemplates/IWusers_admin_main.htm:41
 msgid "Order"
 msgstr "Ordre"
 
-#: pntemplates/iw_users_admin_main.htm:57
+#: pntemplates/IWusers_admin_main.htm:57
 msgid "Id"
 msgstr "Id"
 
-#: pntemplates/iw_users_admin_main.htm:63
+#: pntemplates/IWusers_admin_main.htm:63
 msgid "Group/a"
 msgstr "Grup/s"
 
-#: pntemplates/iw_users_admin_main.htm:64
+#: pntemplates/IWusers_admin_main.htm:64
 msgid "Options"
 msgstr "Opcions"
 
-#: pntemplates/iw_users_admin_main.htm:110
-#: pntemplates/iw_users_admin_edit.htm:71
-#: pntemplates/iw_users_admin_editLogin.htm:47
+#: pntemplates/IWusers_admin_main.htm:110
+#: pntemplates/IWusers_admin_edit.htm:71
+#: pntemplates/IWusers_admin_editLogin.htm:47
 msgid "Edit"
 msgstr "Edita"
 
-#: pntemplates/iw_users_admin_main.htm:111
+#: pntemplates/IWusers_admin_main.htm:111
 msgid "Delete"
 msgstr "Esborra"
 
-#: pntemplates/iw_users_admin_main.htm:112
+#: pntemplates/IWusers_admin_main.htm:112
 msgid "Edit Connection"
 msgstr "Edita les dades de connexió"
 
-#: pntemplates/iw_users_admin_main.htm:121
+#: pntemplates/IWusers_admin_main.htm:121
 msgid "No. Records"
 msgstr "Núm. de registres"
 
-#: pntemplates/iw_users_admin_main.htm:133
-#: pntemplates/iw_users_user_main.htm:20
-#: pntemplates/iw_users_admin_config.htm:64
+#: pntemplates/IWusers_admin_main.htm:133
+#: pntemplates/IWusers_user_main.htm:20
+#: pntemplates/IWusers_admin_config.htm:64
 msgid "About this module"
 msgstr "Pel que fa a aquest mòdul"
 
-#: pntemplates/iw_users_admin_delete.htm:4
-#: pntemplates/iw_users_admin_delete.htm:29
+#: pntemplates/IWusers_admin_delete.htm:4
+#: pntemplates/IWusers_admin_delete.htm:29
 msgid "Delete users"
 msgstr "Esborra usuaris"
 
-#: pntemplates/iw_users_admin_delete.htm:26
+#: pntemplates/IWusers_admin_delete.htm:26
 msgid "Confirms that what users want to delete from the list"
 msgstr "Confirma que vols esborrar els usuaris de la llista"
 
-#: pntemplates/iw_users_admin_delete.htm:30
-#: pntemplates/iw_users_admin_edit.htm:72
-#: pntemplates/iw_users_admin_editLogin.htm:48
-#: pntemplates/iw_users_admin_new.htm:99
+#: pntemplates/IWusers_admin_delete.htm:30
+#: pntemplates/IWusers_admin_edit.htm:72
+#: pntemplates/IWusers_admin_editLogin.htm:48
+#: pntemplates/IWusers_admin_new.htm:99
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: pntemplates/iw_users_user_main.htm:4
+#: pntemplates/IWusers_user_main.htm:4
 msgid "All the groups"
 msgstr "Tots els grups"
 
-#: pntemplates/iw_users_user_main.htm:6
+#: pntemplates/IWusers_user_main.htm:6
 msgid "Groups you're already a member"
 msgstr "Grups dels quals sou membre"
 
-#: pntemplates/iw_users_user_main.htm:10
+#: pntemplates/IWusers_user_main.htm:10
 msgid "Group"
 msgstr "Grup"
 
-#: pntemplates/iw_users_user_main.htm:11
+#: pntemplates/IWusers_user_main.htm:11
 msgid "N. components"
 msgstr "N. components"
 
-#: pntemplates/iw_users_admin_config.htm:9
+#: pntemplates/IWusers_admin_config.htm:9
 msgid "Set contacts list available"
 msgstr "Habilita les llistes de contactes"
 
-#: pntemplates/iw_users_admin_config.htm:13
-#: pntemplates/iw_users_admin_config.htm:30
+#: pntemplates/IWusers_admin_config.htm:13
+#: pntemplates/IWusers_admin_config.htm:30
 msgid "Invisible groups in users search"
 msgstr "Grups que no s'han de mostrar a la cerca d'usuaris"
 
-#: pntemplates/iw_users_admin_config.htm:22
+#: pntemplates/IWusers_admin_config.htm:22
 msgid "Change avatar"
 msgstr "Canvia l'avatar"
 
-#: pntemplates/iw_users_admin_config.htm:26
+#: pntemplates/IWusers_admin_config.htm:26
 msgid "Users policy"
 msgstr "Política dels usuaris"
 
-#: pntemplates/iw_users_admin_config.htm:31
+#: pntemplates/IWusers_admin_config.htm:31
 msgid "Impossible to change mail address"
 msgstr "No ha estat possible canviar l'adreça de correu"
 
-#: pntemplates/iw_users_admin_config.htm:32
+#: pntemplates/IWusers_admin_config.htm:32
 msgid "Impossible to change password"
 msgstr "No ha estat possible canviar la contrasenya"
 
-#: pntemplates/iw_users_admin_config.htm:33
+#: pntemplates/IWusers_admin_config.htm:33
 msgid "Avatar change needs validation"
 msgstr "El canvi d'avatar ha de ser validat"
 
-#: pntemplates/iw_users_admin_config.htm:60
+#: pntemplates/IWusers_admin_config.htm:60
 msgid "Modify the configuration"
 msgstr "Modifica la configuració"
 
-#: pntemplates/iw_users_admin_edit.htm:4
+#: pntemplates/IWusers_admin_edit.htm:4
 msgid "Edit the users"
 msgstr "Edita els usuaris"
 
-#: pntemplates/iw_users_admin_edit.htm:12
-#: pntemplates/iw_users_admin_new.htm:10
+#: pntemplates/IWusers_admin_edit.htm:12
+#: pntemplates/IWusers_admin_new.htm:10
 msgid "Data from the user"
 msgstr "Dades de l'usuari/ària"
 
-#: pntemplates/iw_users_admin_edit.htm:42
-#: pntemplates/iw_users_admin_new.htm:40
+#: pntemplates/IWusers_admin_edit.htm:42
+#: pntemplates/IWusers_admin_new.htm:40
 msgid "Avatar"
 msgstr "Avatar"
 
-#: pntemplates/iw_users_admin_edit.htm:52
+#: pntemplates/IWusers_admin_edit.htm:52
 msgid "Delete avatar"
 msgstr "Esborra l'avatar"
 
-#: pntemplates/iw_users_admin_edit.htm:61
-#: pntemplates/iw_users_admin_new.htm:47
+#: pntemplates/IWusers_admin_edit.htm:61
+#: pntemplates/IWusers_admin_new.htm:47
 msgid "The avatar image must be 90x120 px aproximately with the extensions jpg, gif or png"
 msgstr "La imatge de l'avatar ha de ser d'aproximadament 90x120 px, en els formats jpg, gif o png."
 
-#: pntemplates/iw_users_admin_editLogin.htm:4
+#: pntemplates/IWusers_admin_editLogin.htm:4
 msgid "Change data connection of users"
 msgstr "Modifica les dades de connexió dels usuaris/àries"
 
-#: pntemplates/iw_users_admin_editLogin.htm:4
+#: pntemplates/IWusers_admin_editLogin.htm:4
 msgid "Change data connection to the user"
 msgstr "Modifica les dades de connexió de l'usuari/ària"
 
-#: pntemplates/iw_users_admin_editLogin.htm:33
+#: pntemplates/IWusers_admin_editLogin.htm:33
 msgid "For Not change the password and keep the above, leave blank."
 msgstr "Per no canviar la contrasenya i mantenir l'anterior, deixeu el camp en blanc."
 
-#: pntemplates/iw_users_admin_editLogin.htm:38
-#: pntemplates/iw_users_admin_new.htm:75
+#: pntemplates/IWusers_admin_editLogin.htm:38
+#: pntemplates/IWusers_admin_new.htm:75
 msgid "E-mail"
 msgstr "Correu electrònic"
 
-#: pntemplates/iw_users_admin_import.htm:8
+#: pntemplates/IWusers_admin_import.htm:8
 msgid "First step: choosing the CSV file"
 msgstr "Primer pas: tria de l'arxiu CSV"
 
-#: pntemplates/iw_users_admin_import.htm:11
+#: pntemplates/IWusers_admin_import.htm:11
 msgid "Step two: check that the CSV file chosen is correct"
 msgstr "Segon pas: comprovació que el fitxer CSV triat és correcte"
 
-#: pntemplates/iw_users_admin_import.htm:13
+#: pntemplates/IWusers_admin_import.htm:13
 msgid "Have not indicated the source of the data."
 msgstr "No heu indicat el fitxer d'origen de les dades."
 
-#: pntemplates/iw_users_admin_import.htm:16
-#: pntemplates/iw_users_admin_import.htm:20
+#: pntemplates/IWusers_admin_import.htm:16
+#: pntemplates/IWusers_admin_import.htm:20
 msgid "Filename"
 msgstr "Nom del fitxer"
 
-#: pntemplates/iw_users_admin_import.htm:17
-#: pntemplates/iw_users_admin_import.htm:39
+#: pntemplates/IWusers_admin_import.htm:17
+#: pntemplates/IWusers_admin_import.htm:39
 msgid "The file chosen is not correct"
 msgstr "El fitxer triat no és correcte"
 
-#: pntemplates/iw_users_admin_import.htm:21
+#: pntemplates/IWusers_admin_import.htm:21
 msgid "There was an error uploading the file to the server."
 msgstr "S'ha produït un error en pujar el fitxer al servidor."
 
-#: pntemplates/iw_users_admin_import.htm:24
+#: pntemplates/IWusers_admin_import.htm:24
 msgid "Source file data"
 msgstr "Fitxer d'origen de les dades"
 
-#: pntemplates/iw_users_admin_import.htm:25
+#: pntemplates/IWusers_admin_import.htm:25
 msgid "Camps found in the CSV file"
 msgstr "Camps trobats en el fitxer CSV"
 
-#: pntemplates/iw_users_admin_import.htm:32
+#: pntemplates/IWusers_admin_import.htm:32
 msgid "Correct"
 msgstr "Correcte"
 
-#: pntemplates/iw_users_admin_import.htm:34
+#: pntemplates/IWusers_admin_import.htm:34
 msgid "Wrong"
 msgstr "Incorrecte"
 
-#: pntemplates/iw_users_admin_import.htm:45
+#: pntemplates/IWusers_admin_import.htm:45
 msgid "The fields are not expected. Verify that the CSV file is correct."
 msgstr "Els camps no són els esperats. Comproveu que el fitxer CSV és correcte."
 
-#: pntemplates/iw_users_admin_import.htm:49
+#: pntemplates/IWusers_admin_import.htm:49
 msgid "Has not been found, the fields are expected. In the import of users are missing fields"
 msgstr "No s'han trobat els camps esperats. Al fitxer d'importació d'usuaris hi falten els camps"
 
-#: pntemplates/iw_users_admin_import.htm:57
-#: pntemplates/iw_users_admin_import.htm:64
+#: pntemplates/IWusers_admin_import.htm:57
+#: pntemplates/IWusers_admin_import.htm:64
 msgid "An error occurred while preparing databases"
 msgstr "S'ha produït un error en preparar les bases de dades"
 
-#: pntemplates/iw_users_admin_import.htm:66
+#: pntemplates/IWusers_admin_import.htm:66
 msgid "The records are not correct. Verify that the import file is correct."
 msgstr "Els registres no són correctes. Comproveu que el fitxer d'importació sigui correcte."
 
-#: pntemplates/iw_users_admin_import.htm:68
+#: pntemplates/IWusers_admin_import.htm:68
 msgid "There was an error in entering the data in the database."
 msgstr "S'ha produït un error en entrar les dades a la base de dades."
 
-#: pntemplates/iw_users_admin_import.htm:74
+#: pntemplates/IWusers_admin_import.htm:74
 msgid "Found"
 msgstr "S'han trobat "
 
-#: pntemplates/iw_users_admin_import.htm:75
+#: pntemplates/IWusers_admin_import.htm:75
 msgid "Have been successfully recovered the data. You can continue with the third step."
 msgstr "S'han recuperat les dades satisfactòriament. Pots continuar amb el tercer pas."
 
-#: pntemplates/iw_users_admin_import.htm:78
+#: pntemplates/IWusers_admin_import.htm:78
 msgid "Third step: synchronization of the tables"
 msgstr "Tercer pas: sincronització de les taules"
 
-#: pntemplates/iw_users_admin_import.htm:81
+#: pntemplates/IWusers_admin_import.htm:81
 msgid "Fourth step: the end of the communication process"
 msgstr "Quart pas: comunicació del final del procés"
 
-#: pntemplates/iw_users_user_members.htm:4
+#: pntemplates/IWusers_user_members.htm:4
 msgid "List of users of the group"
 msgstr "Llista d'usuaris/àries del grup"
 
-#: pntemplates/iw_users_user_members.htm:6
+#: pntemplates/IWusers_user_members.htm:6
 msgid "Contacts'"
 msgstr "Llista de contactes"
 
-#: pntemplates/iw_users_user_members.htm:25
-#: pntemplates/iw_users_user_members_optionsContent.htm:3
+#: pntemplates/IWusers_user_members.htm:25
+#: pntemplates/IWusers_user_members_optionsContent.htm:3
 msgid "Delete from contacts' list"
 msgstr "Elimina de la llista de contactes"
 
-#: pntemplates/iw_users_user_members.htm:29
-#: pntemplates/iw_users_user_members_optionsContent.htm:7
+#: pntemplates/IWusers_user_members.htm:29
+#: pntemplates/IWusers_user_members_optionsContent.htm:7
 msgid "Add to contacts' list"
 msgstr "Afegeix a la llista de contactes"
 
-#: pntemplates/iw_users_user_members.htm:33
-#: pntemplates/iw_users_user_members_optionsContent.htm:10
+#: pntemplates/IWusers_user_members.htm:33
+#: pntemplates/IWusers_user_members_optionsContent.htm:10
 msgid "Send a private message"
 msgstr "Envia un missatge privat"
 
-#: pntemplates/iw_users_user_members.htm:37
+#: pntemplates/IWusers_user_members.htm:37
 msgid "N users found"
 msgstr "No s'han trobat usuaris"
 
-#: pntemplates/iw_users_admin_new.htm:54
+#: pntemplates/IWusers_admin_new.htm:54
 msgid "Data Connection"
 msgstr "Dades de la connexió"
 
-#: pntemplates/iw_users_admin_new.htm:83
+#: pntemplates/IWusers_admin_new.htm:83
 msgid "Initial groups"
 msgstr "Grups inicials"
 
-#: pntemplates/iw_users_admin_new.htm:93
+#: pntemplates/IWusers_admin_new.htm:93
 msgid "The fields with * are required"
 msgstr "El camps amb un * són obligatoris"
 
-#: pntemplates/iw_users_admin_addGroupForm.htm:3
+#: pntemplates/IWusers_admin_addGroupForm.htm:3
 msgid "Choose a group..."
 msgstr "Tria un grup..."
 
-#: pntemplates/iw_users_admin_addGroupRow.htm:3
+#: pntemplates/IWusers_admin_addGroupRow.htm:3
 msgid "Add group"
 msgstr "Afegeix un grup"
 

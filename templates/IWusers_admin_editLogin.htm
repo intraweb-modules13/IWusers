@@ -1,9 +1,9 @@
-{include file="iw_users_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
+{include file="IWusers_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
 <div class="pn-admincontainer">
 	<div class="pn-adminpageicon">{img modname='core' src='edit.gif' set='icons/large'}</div>
 	<h2>{if $users|@count > 1}{gt text="Change data connection of users"}{else}{gt text="Change data connection to the user"}{/if}</h2>
-	<form  class="pn-adminform" enctype="application/x-www-form-urlencoded" method="post" name="usersList" action="{modurl modname="iw_users" type="admin" func="updateLogin"}">
-		<input type="hidden" name="authid" value="{secgenauthkey module="iw_users"}" />
+	<form  class="pn-adminform" enctype="application/x-www-form-urlencoded" method="post" name="usersList" action="{modurl modname="IWusers" type="admin" func="updateLogin"}">
+		<input type="hidden" name="authid" value="{secgenauthkey module="IWusers"}" />
 		{foreach item=user from=$users}
 			<input type="hidden" name="uid[]" value="{$user.uid}" />
 			<table width="400">
@@ -45,7 +45,7 @@
 		{/foreach}
 		<div style="text-align: center;">
 			{button src='button_ok.gif' set='icons/small' __alt="Edit" __title="Edit"}{gt text="Edit"}
-			<a href="{modurl modname="iw_users" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
+			<a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
 		</div>
 	</form>
 </div>
