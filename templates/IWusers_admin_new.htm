@@ -44,7 +44,7 @@
                 <label for="group">{gt text="Initial groups"} <span class="z-form-mandatory-flag"> *</span></label>
                 {foreach item=group from=$groups}
                 <div class="z-formnote">
-                    <input type="checkbox" name="group[]" {if $defaultgroup eq $group.name}checked onchange="this.checked=true"{/if} value="{$group.id}" />
+                    <input type="checkbox" name="group[]" {if $defaultgroup eq $group.id}checked onchange="this.checked=true"{/if} value="{$group.id}" />
                     {$group.name}
                 </div>
                 {/foreach}
@@ -52,12 +52,12 @@
         </fieldset>
         {gt text="The fields with * are required"}
         <div class="z-center">
-            <div class="z-button">
+            <span class="z-buttons">
                 <a title="Create user" onClick="javascript:forms['newUser'].submit()">{img modname='core' src='button_ok.png' set='icons/small' __alt="Create user" __title="Create user"} {gt text="Create user"}</a>
-            </div>
-            <div class="z-button">
+            </span>
+            <span class="z-buttons">
                 <a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
-            </div>
+            </span>
         </div>
     </form>
 </div>

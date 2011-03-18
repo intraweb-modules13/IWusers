@@ -1,51 +1,36 @@
-{include file="IWusers_admin_menu.htm" inici=$inici numitems=$numitems campfiltre=$campfiltre filtre=$filtre}
-<div class="pn-admincontainer">
-	<div class="pn-adminpageicon">{img modname='core' src='edit.gif' set='icons/large'}</div>
-	<h2>{if $users|@count > 1}{gt text="Change data connection of users"}{else}{gt text="Change data connection to the user"}{/if}</h2>
-	<form  class="pn-adminform" enctype="application/x-www-form-urlencoded" method="post" name="usersList" action="{modurl modname="IWusers" type="admin" func="updateLogin"}">
-		<input type="hidden" name="authid" value="{secgenauthkey module="IWusers"}" />
-		{foreach item=user from=$users}
-			<input type="hidden" name="uid[]" value="{$user.uid}" />
-			<table width="400">
-				<tr>
-					<td>
-						<strong>{$usersFullNames[$user.uname]}
-					</td>
-				</tr>
-				<tr>
-					<td width="200">
-						{gt text="Username"}
-					</td>
-					<td width="200">
-						<input type="text" name="userName[{$user.uid}]" value="{$usersNames[$user.uid]}" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						{gt text="Password"}
-					</td>
-					<td>
-						<input type="text" name="pass[{$user.uid}]" value="" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						({gt text="For Not change the password and keep the above, leave blank."})
-					</td>
-				</tr>
-				<tr>
-					<td>
-						{gt text="E-mail"}
-					</td>
-					<td>
-						<input type="text" name="userMail[{$user.uid}]" value="{$usersMails[$user.uid]}" />
-					</td>
-				</tr>
-			</table>
-		{/foreach}
-		<div style="text-align: center;">
-			{button src='button_ok.gif' set='icons/small' __alt="Edit" __title="Edit"}{gt text="Edit"}
-			<a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
-		</div>
-	</form>
+{include file="IWusers_admin_menu.htm"}
+<div class="z-admincontainer">
+    <div class="z-adminpageicon">{img modname='core' src='edit.png' set='icons/large'}</div>
+    <h2>{if $users|@count > 1}{gt text="Change data connection of users"}{else}{gt text="Change data connection to the user"}{/if}</h2>
+    <form  class="z-form" enctype="application/x-www-form-urlencoded" method="post" name="usersList" action="{modurl modname="IWusers" type="admin" func="updateLogin"}">
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWusers"}" />
+	{foreach item=user from=$users}
+        <input type="hidden" name="uid[]" value="{$user.uid}" />
+        <fieldset>
+            <legend>{$usersFullNames[$user.uname]}</legend>
+            <div class="z-formrow">
+                <label for="userName[{$user.uid}]">{gt text="Username"}</label>
+                <input id="userName[{$user.uid}]" name="userName[{$user.uid}]" type="text" value="<!--[$usersNames[$user.uid]]-->" />
+            </div>
+            <div class="z-formrow">
+                <label for="pass[{$user.uid}]">{gt text="Password"}</label>
+                <input id="pass[{$user.uid}]" name="pass[{$user.uid}]" type="text" />
+                <div class="z-formnote">({gt text="For Not change the password and keep the above, leave blank."})</div>
+            </div>
+            <div class="z-formrow">
+                <label for="userMail[{$user.uid}]">{gt text="E-mail"}</label>
+                <input id="userMail[{$user.uid}]" name="userMail[{$user.uid}]" type="text" value="<!--[$usersMails[$user.uid]]-->" />
+            </div>
+        </fieldset>
+        {/foreach}
+        <div class="z-center">
+            <span class="z-buttons">
+                <input class="z-bt-ok z-bt-small" type="submit" value="{gt text="Edit"}" />
+            </span>
+            <span class="z-buttons">
+                <a href="{modurl modname="IWusers" type="admin" func="main"}">{img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"}{gt text="Cancel"}</a>
+            </span>
+        </div>
+    </form>
 </div>
+
