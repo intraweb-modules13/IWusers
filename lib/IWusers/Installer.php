@@ -56,6 +56,7 @@ class IWusers_Installer extends Zikula_Installer {
         ModUtil::delVar('IWmain', 'friendsLabel');
         ModUtil::delVar('IWmain', 'friendsSystemAvailable');
         ModUtil::delVar('IWmain', 'invisibleGroupsInList', '$');
+        ModUtil::delVar('IWmain', 'usersCanManageName', 0);
         //Deletion successfull
         return true;
     }

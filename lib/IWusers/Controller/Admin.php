@@ -2510,6 +2510,7 @@ class IWusers_Controller_Admin extends Zikula_Controller {
         }
         $friendsSystemAvailable = ModUtil::getVar('IWusers', 'friendsSystemAvailable');
         $invisibleGroupsInList = ModUtil::getVar('IWusers', 'invisibleGroupsInList');
+        $usersCanManageName = ModUtil::getVar('IWusers', 'usersCanManageName');
         // Create output object
         $view = Zikula_View::getInstance('IWusers', false);
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
@@ -2526,6 +2527,7 @@ class IWusers_Controller_Admin extends Zikula_Controller {
         }
         $view->assign('friendsSystemAvailable', $friendsSystemAvailable);
         $view->assign('invisibleGroupsInList', $invisibleGroupsInList);
+        $view->assign('usersCanManageName', $usersCanManageName);
         $view->assign('groupsArray', $groupsArray);
         return $view->fetch('IWusers_admin_config.htm');
     }
@@ -2540,6 +2542,8 @@ class IWusers_Controller_Admin extends Zikula_Controller {
 
         $friendsSystemAvailable = FormUtil::getPassedValue('friendsSystemAvailable', isset($args['friendsSystemAvailable']) ? $args['friendsSystemAvailable'] : 0, 'POST');
         $groups = FormUtil::getPassedValue('groups', isset($args['groups']) ? $args['groups'] : null, 'POST');
+        $usersCanManageName = FormUtil::getPassedValue('usersCanManageName', isset($args['usersCanManageName']) ? $args['usersCanManageName'] : null, 'POST');
+
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) {
             return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
@@ -2554,6 +2558,7 @@ class IWusers_Controller_Admin extends Zikula_Controller {
         }
         ModUtil::setVar('IWusers', 'friendsSystemAvailable', $friendsSystemAvailable);
         ModUtil::setVar('IWusers', 'invisibleGroupsInList', $groupsString);
+        ModUtil::setVar('IWusers', 'usersCanManageName', $usersCanManageName);
         LogUtil::registerStatus($this->__('The configuration has changed'));
         return System::redirect(ModUtil::url('IWusers', 'admin', 'main'));
     }
