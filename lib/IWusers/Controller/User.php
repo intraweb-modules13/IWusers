@@ -65,6 +65,7 @@ class IWusers_Controller_User extends Zikula_Controller {
         if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ)) {
             return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
         }
+
         //Check if user belongs to the group
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         $isMember = ModUtil::func('IWmain', 'user', 'isMember',
@@ -159,7 +160,9 @@ class IWusers_Controller_User extends Zikula_Controller {
         $view = Zikula_View::getInstance('IWusers', false);
         $view->assign('members', $usersArray);
         $view->assign('gid', $gid);
-        $view->assign('groupName', $groupsInfo[$gid]);
+        if ($gid > 0) {
+            $view->assign('groupName', $groupsInfo[$gid]);
+        }
         $view->assign('friendsSystemAvailable', ModUtil::getVar('IWusers', 'friendsSystemAvailable'));
         return $view->fetch('IWusers_user_members.htm');
     }

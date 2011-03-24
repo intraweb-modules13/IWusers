@@ -279,8 +279,8 @@ class IWusers_Api_User extends Zikula_Api {
         if (SecurityUtil::checkPermission('IWusers::', '::', ACCESS_COMMENT)) {
             $links[] = array('url' => ModUtil::url('IWusers', 'user', 'main', array('all' => 1)), 'text' => $this->__('Show all the groups'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-group');
         }
-        if (SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            $links[] = array('url' => ModUtil::url('IWusers', 'admin', 'members', array('gid' => -1)), 'text' => $this->__('Show contacts\' list'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-view');
+        if (SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ) && ModUtil::getVar('IWusers', 'friendsSystemAvailable') == 1) {
+            $links[] = array('url' => ModUtil::url('IWusers', 'user', 'members', array('gid' => -1)), 'text' => $this->__('Show contacts\' list'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-view');
         }
         return $links;
     }
