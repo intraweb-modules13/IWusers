@@ -1,6 +1,6 @@
 <?php
 
-class IWusers_Controller_User extends Zikula_Controller {
+class IWusers_Controller_User extends Zikula_AbstractController {
 
     /**
      * Show the list of user groups

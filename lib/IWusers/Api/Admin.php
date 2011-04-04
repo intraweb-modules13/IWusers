@@ -1,6 +1,6 @@
 <?php
 
-class IWusers_Api_Admin extends Zikula_Api {
+class IWusers_Api_Admin extends Zikula_AbstractApi {
 
     public function create($args) {
 

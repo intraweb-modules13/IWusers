@@ -1,6 +1,6 @@
 <?php
 
-class IWusers_Controller_Ajax extends Zikula_Controller {
+class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
 
     public function addContact($args) {
 

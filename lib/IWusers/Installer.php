@@ -1,6 +1,6 @@
 <?php
 
-class IWusers_Installer extends Zikula_Installer {
+class IWusers_Installer extends Zikula_AbstractInstaller {
 
     function Install() {
         // Checks if module IWmain is installed. If not returns error

@@ -1,6 +1,6 @@
 <?php
 
-class IWusers_Api_User extends Zikula_Api {
+class IWusers_Api_User extends Zikula_AbstractApi {
 
     public function getAll($args) {
         $inici = FormUtil::getPassedValue('inici', isset($args['inici']) ? $args['inici'] : null, 'POST');
