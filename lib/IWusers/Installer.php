@@ -18,18 +18,10 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
         // Create module table
         if (!DBUtil::createTable('IWusers'))
             return false;
-        if (!DBUtil::createTable('IWusers_import'))
-            return false;
-        if (!DBUtil::createTable('IWusers_aux'))
-            return false;
         if (!DBUtil::createTable('IWusers_friends'))
             return false;
         // Create the index
         if (!DBUtil::createIndex('iw_uid', 'IWusers', 'uid'))
-            return false;
-        if (!DBUtil::createIndex('iw_uid', 'IWusers_import', 'uid'))
-            return false;
-        if (!DBUtil::createIndex('iw_uid', 'IWusers_aux', 'uid'))
             return false;
         if (!DBUtil::createIndex('iw_uid', 'IWusers_friends', 'uid'))
             return false;
@@ -49,8 +41,6 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
     function Uninstall() {
         // Delete module table
         DBUtil::dropTable('IWusers');
-        DBUtil::dropTable('IWusers_import');
-        DBUtil::dropTable('IWusers_aux');
         DBUtil::dropTable('IWusers_friends');
         //Create module vars
         ModUtil::delVar('IWmain', 'friendsLabel');

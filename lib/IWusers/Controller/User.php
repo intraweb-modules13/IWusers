@@ -2,6 +2,11 @@
 
 class IWusers_Controller_User extends Zikula_AbstractController {
 
+    protected function postInitialize() {
+        // Set caching to false by default.
+        $this->view->setCaching(false);
+    }
+
     /**
      * Show the list of user groups
      * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
@@ -9,19 +14,17 @@ class IWusers_Controller_User extends Zikula_AbstractController {
      */
     public function main($args) {
         $all = FormUtil::getPassedValue('all', isset($args['all']) ? $args['all'] : null, 'GET');
-        // Create output object
-        $view = Zikula_View::getInstance('IWusers', false);
         if ($all == null) {
             // Security check
             if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-                return LogUtil::registerPermissionError();
+                throw new Zikula_Exception_Forbidden();
             }
         } else {
             // Security check
             if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_COMMENT)) {
-                return LogUtil::registerPermissionError();
+                throw new Zikula_Exception_Forbidden();
             }
-            $view->assign('all', true);
+            $all = true;
         }
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         $userGroups = ModUtil::func('IWmain', 'user', 'getAllUserGroups',
@@ -33,9 +36,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         foreach ($allGroups as $group) {
             $groupsNames[$group['id']] = $group['name'];
         }
-        if ($all != null) {
+        if ($all != null)
             $userGroups = $allGroups;
-        }
         $invisibleGroupsInList = ModUtil::getVar('IWusers', 'invisibleGroupsInList');
         foreach ($userGroups as $group) {
             if (strpos($invisibleGroupsInList, '$' . $group['id'] . '$') === false) {
@@ -48,8 +50,9 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                     'name' => $groupsNames[$group['id']]);
             }
         }
-        $view->assign('groups', $groups);
-        return $view->fetch('IWusers_user_main.htm');
+        return $this->view->assign('groups', $groups)
+                ->assign('all', $all)
+                ->fetch('IWusers_user_main.htm');
     }
 
     /**
@@ -63,7 +66,7 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         $gid = FormUtil::getPassedValue('gid', isset($args['gid']) ? $args['gid'] : null, 'GET');
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         //Check if user belongs to the group
@@ -74,7 +77,7 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                             'uid' => UserUtil::getVar('uid')));
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_COMMENT) && $isMember != 1 && $gid > 0) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
         if ($gid > 0) {
             //get group members
@@ -156,15 +159,12 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                 'isFriend' => $isFriend,
                 'uid' => $member['id']);
         }
-        // Create output object
-        $view = Zikula_View::getInstance('IWusers', false);
-        $view->assign('members', $usersArray);
-        $view->assign('gid', $gid);
+        $this->view->assign('members', $usersArray)
+        ->assign('gid', $gid);
         if ($gid > 0) {
-            $view->assign('groupName', $groupsInfo[$gid]);
+            $this->view->assign('groupName', $groupsInfo[$gid]);
         }
-        $view->assign('friendsSystemAvailable', ModUtil::getVar('IWusers', 'friendsSystemAvailable'));
-        return $view->fetch('IWusers_user_members.htm');
+        $this->view->assign('friendsSystemAvailable', ModUtil::getVar('IWusers', 'friendsSystemAvailable'));
+        return $this->view->fetch('IWusers_user_members.htm');
     }
-
 }

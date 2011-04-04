@@ -4,7 +4,7 @@
     <h2>{gt text="List of users"}</h2>
     <form  class="z-adminform" enctype="application/x-www-form-urlencoded" method="post" name="usersList" action="{modurl modname="IWusers" type="admin" func="main"}">
         <input type="hidden" name="filtre" value="{$filtre}" />
-        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWusers"}" />
+        <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <input type="hidden" name="campfiltre" value="{$campfiltre}" />
         <input type="hidden" name="numitems" value="{$numitems}" />
         <input type="hidden" name="inici" value="0" />
@@ -50,7 +50,7 @@
         </table>
     </form>
 
-    <form  class="z-form" enctype="application/x-www-form-urlencoded" method="post" name="usersListOptions">
+    <form  class="z-form" enctype="application/x-www-form-urlencoded" method="post" name="usersListOptions" action="">
         <table class="z-admintable">
             <thead>
                 <tr>
@@ -104,15 +104,11 @@
                  </td>
                 </tr>
                 {/foreach}
-            <thead>
                 <tr>
                     <th colspan="10" align="right">
                         <input type="button" onClick="javascript:send(0)" value="{gt text="Edit"}" />
-                               <input type="button" onClick="javascript:send(1)" value="{gt text="Delete"}" />
-                               <input type="button" onClick="javascript:send(2)" value="{gt text="Edit Connection"}" />
                     </th>
                 </tr>
-            </thead>
             </tbody>
         </table>
         <table>

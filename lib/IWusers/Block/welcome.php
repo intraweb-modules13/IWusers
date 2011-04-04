@@ -1,39 +1,5 @@
 <?php
-// $Id: users
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
 
-/**
- * IWusers module
- * 
- * The IWusers improve the users managment 
- *
- * Purpose of file:  Create a block to welcome users during connexion
- * 
- * @package      Intraweb_Modules
- * @subpackage   IWusers
- * @version      $Id: users.php
- * @author       Albert Pérez Monfort
- * @link         http://phobos.xtec.cat/intraweb  The Intraweb Project Home Page
- * @copyright    Copyright (C) 2009 by the Intraweb Project Team
- * @license      http://www.gnu.org/copyleft/gpl.html GNU General Public License
- */ 
 
 function IWusers_welcomeblock_init()
 {
@@ -65,7 +31,7 @@ function IWusers_welcomeblock_display($blockinfo)
 {
 	
 	// Security check
-	if (!SecurityUtil::checkPermission*(0, "IWusers:welcomeblock:", $blockinfo['title']."::", ACCESS_READ)) { 
+	if (!SecurityUtil::checkPermission("IWusers:welcomeblock:", $blockinfo['title']."::", ACCESS_READ)) { 
 		return; 
 	} 
 	$baseURL = System::getBaseUrl();

@@ -3,7 +3,7 @@
     <div class="z-adminpageicon">{img modname='core' src='configure.png' set='icons/large'}</div>
     <h2>{gt text="Configure the module"}</h2>
     <form  class="z-form" enctype="application/x-www-form-urlencoded" method="post" name="config" id="config" action="{modurl modname="IWusers" type="admin" func="updateConf"}">
-        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWusers"}" />
+        <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <div class="z-formrow">
             <label for="friendsSystemAvailable">{gt text="Set contacts list available"}:</label>
             <input type="checkbox" name="friendsSystemAvailable" {if $friendsSystemAvailable eq 1}checked{/if} value="1" />

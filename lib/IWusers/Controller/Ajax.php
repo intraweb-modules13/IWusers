@@ -5,7 +5,7 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     public function addContact($args) {
 
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
         $gid = FormUtil::getPassedValue('gid', -2, 'GET');
         if ($gid == -2) {
@@ -21,13 +21,15 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
         }
         $view = Zikula_View::getInstance('IWusers', false);
         if ($action == 'add') {
-            if (!ModUtil::apiFunc('IWusers', 'user', 'addContant', array('fuid' => $fuid))) {
+            if (!ModUtil::apiFunc('IWusers', 'user', 'addContant',
+                            array('fuid' => $fuid))) {
                 AjaxUtil::error('error');
             }
             $view->assign('add', true);
         }
         if ($action == 'delete') {
-            if (!ModUtil::apiFunc('IWusers', 'user', 'deleteContant', array('fuid' => $fuid))) {
+            if (!ModUtil::apiFunc('IWusers', 'user', 'deleteContant',
+                            array('fuid' => $fuid))) {
                 AjaxUtil::error('error');
             }
             $view->assign('add', false);
@@ -36,7 +38,7 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
         $view->assign('gid', $gid);
         $vars = UserUtil::getVars($fuid);
         $view->assign('uname', $vars['uname']);
-        $content = $content = $view->fetch('IWusers_user_members_optionsContent.htm');
+        $content = $view->fetch('IWusers_user_members_optionsContent.htm');
         AjaxUtil::output(array('fuid' => $fuid,
                     'content' => $content,
                     'gid' => $gid));
@@ -45,7 +47,7 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     public function delUserGroup($args) {
 
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
         $uid = FormUtil::getPassedValue('uid', -1, 'GET');
         if ($uid == -1) {
@@ -55,8 +57,9 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
         if ($gid == -1) {
             AjaxUtil::error('no group id');
         }
-        if (!ModUtil::apiFunc('groups', 'admin', 'removeuser', array('uid' => $uid,
-                    'gid' => $gid))) {
+        if (!ModUtil::apiFunc('groups', 'admin', 'removeuser',
+                        array('uid' => $uid,
+                            'gid' => $gid))) {
             AjaxUtil::error('error deleting group');
         }
         AjaxUtil::output(array('uid' => $uid,
@@ -66,17 +69,19 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     public function addUserGroup($args) {
 
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
         $uid = FormUtil::getPassedValue('uid', -1, 'GET');
         if ($uid == -1) {
             AjaxUtil::error('no user id');
         }
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $allGroups = ModUtil::func('IWmain', 'user', 'getAllGroups', array('sv' => $sv));
+        $allGroups = ModUtil::func('IWmain', 'user', 'getAllGroups',
+                        array('sv' => $sv));
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $userGroups = ModUtil::func('IWmain', 'user', 'getAllUserGroups', array('sv' => $sv,
-                    'uid' => $uid));
+        $userGroups = ModUtil::func('IWmain', 'user', 'getAllUserGroups',
+                        array('sv' => $sv,
+                            'uid' => $uid));
         $usersGroupsArray = array();
         foreach ($allGroups as $group) {
             if (!array_key_exists($group['id'], $userGroups)) {
@@ -97,7 +102,7 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     public function addGroupProceed($args) {
 
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
         $uid = FormUtil::getPassedValue('uid', -1, 'GET');
         if ($uid == -1) {
@@ -107,16 +112,19 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
         if ($gid == -1) {
             AjaxUtil::error('no group id');
         }
-        if (!ModUtil::apiFunc('groups', 'admin', 'adduser', array('uid' => $uid,
-                    'gid' => $gid))) {
+        if (!ModUtil::apiFunc('groups', 'admin', 'adduser',
+                        array('uid' => $uid,
+                            'gid' => $gid))) {
             AjaxUtil::error('error adding group');
         }
         // Get all the groups information
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $groupsInfo = ModUtil::func('IWmain', 'user', 'getAllGroupsInfo', array('sv' => $sv));
+        $groupsInfo = ModUtil::func('IWmain', 'user', 'getAllGroupsInfo',
+                        array('sv' => $sv));
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $groups = ModUtil::func('IWmain', 'user', 'getAllUserGroups', array('sv' => $sv,
-                    'uid' => $uid));
+        $groups = ModUtil::func('IWmain', 'user', 'getAllUserGroups',
+                        array('sv' => $sv,
+                            'uid' => $uid));
         $userGroups = array();
         foreach ($groups as $group) {
             if ($group['id']) {

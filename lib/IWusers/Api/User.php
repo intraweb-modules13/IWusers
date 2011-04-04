@@ -9,7 +9,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         $numitems = FormUtil::getPassedValue('numitems', isset($args['numitems']) ? $args['numitems'] : null, 'POST');
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new Zikula_Exception_Forbidden();
         }
         if ($filtre == '0') {
             $filtre = '';
@@ -62,7 +62,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
     public function getAllUsers() {
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new Zikula_Exception_Forbidden();
         }
         $myJoin = array();
         $myJoin[] = array('join_table' => 'users',
@@ -101,7 +101,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         $multi = FormUtil::getPassedValue('multi', isset($args['multi']) ? $args['multi'] : null, 'POST');
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new Zikula_Exception_Forbidden();
         }
         //Needed arguments
         if (!isset($uid) && !isset($id) && !isset($multi)) {
@@ -141,7 +141,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         $campfiltre = FormUtil::getPassedValue('campfiltre', isset($args['campfiltre']) ? $args['campfiltre'] : null, 'POST');
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new Zikula_Exception_Forbidden();
         }
         if ($filtre == '0') {
             $filtre = '';
@@ -195,7 +195,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new Zikula_Exception_Forbidden();
         }
 
         $pntable = DBUtil::getTables();
@@ -222,7 +222,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new Zikula_Exception_Forbidden();
         }
         $items = array('uid' => UserUtil::getVar('uid'),
             'fuid' => $args['fuid']);
@@ -243,7 +243,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
-            return LogUtil::registerPermissionError();
+            throw new Zikula_Exception_Forbidden();
         }
         $pntables = DBUtil::getTables();
         $c = $pntables['IWusers_friends_column'];
@@ -256,7 +256,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
     public function changeRealName($args) {
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ) || !ModUtil::getVar('IWusers', 'usersCanManageName') == 1) {
-            return LogUtil::registerPermissionError();
+            throw new Zikula_Exception_Forbidden();
         }
         $pntables = DBUtil::getTables();
         $c = $pntables['IWusers_column'];
