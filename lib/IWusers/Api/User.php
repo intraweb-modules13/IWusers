@@ -253,25 +253,34 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         }
         return true;
     }
+
     public function changeRealName($args) {
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ) || !ModUtil::getVar('IWusers', 'usersCanManageName') == 1) {
             throw new Zikula_Exception_Forbidden();
         }
+        $user = ModUtil::apiFunc('IWusers', 'user', 'get',
+                        array('uid' => UserUtil::getvar('uid')));
+        if (!$user) {
+            $items = array('uid' => UserUtil::getVar('uid'));
+            // create user
+            if (!DBUtil::insertObject($items, 'IWusers', 'suid')) {
+                return LogUtil::registerError(_CREATEFAILED);
+            }
+        }
         $pntables = DBUtil::getTables();
         $c = $pntables['IWusers_column'];
         $where = "WHERE $c[uid]=" . UserUtil::getVar('uid');
         $item = array('nom' => $args['userName'],
-                      'cognom1' => $args['userSurname1'],
-                      'cognom2' => $args['userSurname2']);
+            'cognom1' => $args['userSurname1'],
+            'cognom2' => $args['userSurname2']);
         if (!DBUtil::updateObject($item, 'IWusers', $where)) {
             return LogUtil::registerError($this->__('Error! Update attempt failed.'));
         }
         return true;
     }
 
-    public function getlinks($args)
-    {
+    public function getlinks($args) {
         $links = array();
         if (SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ)) {
             $links[] = array('url' => ModUtil::url('IWusers', 'user', 'main'), 'text' => $this->__('Shows the groups I belong'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-group');

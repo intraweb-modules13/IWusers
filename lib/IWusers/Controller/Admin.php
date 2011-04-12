@@ -520,11 +520,11 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         foreach ($groups as $group) {
             $groupsString .= '$' . $group . '$';
         }
-        $this->setVar('IWusers', 'friendsSystemAvailable', $friendsSystemAvailable)
-                ->setVar('IWusers', 'invisibleGroupsInList', $groupsString)
-                ->setVar('IWusers', 'usersCanManageName', $usersCanManageName);
+        $this->setVar('friendsSystemAvailable', $friendsSystemAvailable)
+                ->setVar('invisibleGroupsInList', $groupsString)
+                ->setVar('usersCanManageName', $usersCanManageName);
         LogUtil::registerStatus($this->__('The configuration has changed'));
-        return System::redirect(ModUtil::url('IWusers', 'admin', 'main'));
+        return System::redirect(ModUtil::url('IWusers', 'admin', 'config'));
     }
 
 }

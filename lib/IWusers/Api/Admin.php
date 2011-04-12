@@ -2,6 +2,27 @@
 
 class IWusers_Api_Admin extends Zikula_AbstractApi {
 
+    public function create($args) {
+        // Security check
+        if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
+            return LogUtil::registerPermissionError();
+        }
+
+        //Needed arguments
+        if (!isset($args['uid'])) {
+            return LogUtil::registerError('Error! Could not do what you wanted. Please check your input.');
+        }
+
+        $items = $args;
+
+        if (!DBUtil::insertObject($items, 'IWusers', 'suid')) {
+            return LogUtil::registerError(_CREATEFAILED);
+        }
+
+        // Return the id of the newly created item to the calling process
+        return $items['suid'];
+    }
+
     /**
      * Input the user in the initial group
      * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
@@ -136,4 +157,5 @@ class IWusers_Api_Admin extends Zikula_AbstractApi {
         }
         return $links;
     }
+
 }

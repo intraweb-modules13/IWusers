@@ -10,7 +10,7 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
             return LogUtil::registerError($this->$this->__('Module IWmain is needed. You have to install the IWmain module before installing it.'));
         }
         // Check if the version needed is correct
-        $versionNeeded = '2.0';
+        $versionNeeded = '3.0.0';
         if (!ModUtil::func('IWmain', 'admin', 'checkVersion',
                         array('version' => $versionNeeded))) {
             return false;
