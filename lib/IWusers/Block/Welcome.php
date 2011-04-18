@@ -59,7 +59,7 @@ class IWusers_Block_Welcome extends Zikula_Controller_AbstractBlock {
         $values = explode('---', $blockinfo['url']);
         $hello = (!empty($values[0])) ? $values[0] : $this->__('Hi');
         $welcome = (!empty($values[0])) ? $values[1] : $this->__('welcome to the intranet');
-        $date = $values[2];
+        $date = (isset($values[2])) ? $values[2] : '';
 
         $s = $this->view->assign('userName', $userName)
                         ->assign('hello', $hello)
