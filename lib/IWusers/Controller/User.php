@@ -55,6 +55,191 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                 ->fetch('IWusers_user_main.htm');
     }
 
+    public function profile() {
+        // Security check
+        if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ) || !UserUtil::isLoggedIn()) {
+            throw new Zikula_Exception_Forbidden();
+        }
+        $uid = UserUtil::getVar('uid');
+
+        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+        $photo = ModUtil::func('IWmain', 'user', 'getUserPicture',
+                        array('uname' => UserUtil::getVar('uname'),
+                            'sv' => $sv));
+        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+        $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture',
+                        array('uname' => '_' . UserUtil::getVar('uname'),
+                            'sv' => $sv));
+        //Check if gd library is available
+        if (extension_loaded('gd') && ModUtil::getVar('IWusers', 'allowUserChangeAvatar') == 1) {
+            $canChangeAvatar = true;
+        }
+        //Check if the users picture folder exists
+        if (!file_exists(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder')) || ModUtil::getVar('IWusers', 'usersPictureFolder') == '') {
+            $canChangeAvatar = false;
+        } else {
+            if (!is_writeable(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder'))) {
+                $canChangeAvatar = false;
+            }
+        }
+        // checks if user can change their real names
+        $modid = ModUtil::getIdFromName('IWusers');
+        $modinfo = ModUtil::getInfo($modid);
+        $usersCanManageName = (ModUtil::getVar('IWusers', 'usersCanManageName') == 1 && $modinfo['state'] == 3) ? true : false;
+        $userName = '';
+        $userSurname1 = '';
+        $userSurname2 = '';
+        if ($modinfo['state'] == 3) {
+            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            $userName = ModUtil::func('IWmain', 'user', 'getUserInfo',
+                            array('uid' => UserUtil::getVar('uid'),
+                                'info' => 'n',
+                                'sv' => $sv));
+            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            $userSurname1 = ModUtil::func('IWmain', 'user', 'getUserInfo',
+                            array('uid' => UserUtil::getVar('uid'),
+                                'info' => 'c1',
+                                'sv' => $sv));
+            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            $userSurname2 = ModUtil::func('IWmain', 'user', 'getUserInfo',
+                            array('uid' => UserUtil::getVar('uid'),
+                                'info' => 'c2',
+                                'sv' => $sv));
+        }
+
+        return $this->view->assign('avatarChangeValidationNeeded', ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded'))
+                ->assign('photo', $photo)
+                ->assign('photo_s', $photo_s)
+                ->assign('canChangeAvatar', $canChangeAvatar)
+                ->assign('usersCanManageName', $usersCanManageName)
+                ->assign('userName', $userName)
+                ->assign('userSurname1', $userSurname1)
+                ->assign('userSurname2', $userSurname2)
+                ->fetch('IWusers_user_profile.htm');
+    }
+
+    public function updateprofile($args) {
+        $deleteAvatar = FormUtil::getPassedValue('deleteAvatar', isset($args['deleteAvatar']) ? $args['deleteAvatar'] : 0, 'POST');
+        $userName = FormUtil::getPassedValue('userName', isset($args['userName']) ? $args['userName'] : null, 'POST');
+        $userSurname1 = FormUtil::getPassedValue('userSurname1', isset($args['userSurname1']) ? $args['userSurname1'] : null, 'POST');
+        $userSurname2 = FormUtil::getPassedValue('userSurname2', isset($args['userSurname2']) ? $args['userSurname2'] : null, 'POST');
+
+        // Security check
+        if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ) || !UserUtil::isLoggedIn()) {
+            throw new Zikula_Exception_Forbidden();
+        }
+
+        $this->checkCsrfToken();
+
+        $uid = UserUtil::getVar('uid');
+
+        if ($deleteAvatar != 1) {
+            //gets the attached file array
+            $fileName = $_FILES['avatar']['name'];
+            $file_extension = strtolower(substr(strrchr($fileName, "."), 1));
+            if ($file_extension != 'png' && $file_extension != 'gif' && $file_extension != 'jpg' && $fileName != '') {
+                $errorMsg = $this->__('The information has been modified, but the uplaod of the avatar has failed because the file extension is not allowed. The allowed extensions are: png, jpg and gif');
+                $fileName = '';
+            }
+            // update the attached file to the server
+            if ($fileName != '') {
+                for ($i = 0; $i < 2; $i++) {
+                    $fileAvatarName = (ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded') == 1) ? '_' . UserUtil::getVar('uname') : UserUtil::getVar('uname');
+                    $userFileName = ($i == 0) ? $fileAvatarName . '.' . $file_extension : $fileAvatarName . '_s.' . $file_extension;
+                    $new_width = ($i == 0) ? 90 : 30;
+                    //source and destination
+                    $imgSource = $_FILES['avatar']['tmp_name'];
+                    $imgDest = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . $userFileName;
+                    //if success $errorMsg = ''
+                    $errorMsg = ModUtil::func('IWmain', 'user', 'thumb',
+                                    array('imgSource' => $imgSource,
+                                        'imgDest' => $imgDest,
+                                        'new_width' => $new_width,
+                                        'imageName' => $fileName));
+                    if ($errorMsg == '') {
+                        // save user avatar extension
+
+                    }
+                }
+            }
+        } else {
+            ModUtil::func('IWusers', 'user', 'deleteAvatar',
+                            array('avatarName' => UserUtil::getVar('uname'),
+                                'extensions' => array('jpg',
+                                    'png',
+                                    'gif')));
+            ModUtil::func('IWusers', 'user', 'deleteAvatar',
+                            array('avatarName' => UserUtil::getVar('uname') . '_s',
+                                'extensions' => array('jpg',
+                                    'png',
+                                    'gif')));
+            ModUtil::func('IWusers', 'user', 'deleteAvatar',
+                            array('avatarName' => '_' . UserUtil::getVar('uname'),
+                                'extensions' => array('jpg',
+                                    'png',
+                                    'gif')));
+            ModUtil::func('IWusers', 'user', 'deleteAvatar',
+                            array('avatarName' => '_' . UserUtil::getVar('uname') . '_s',
+                                'extensions' => array('jpg',
+                                    'png',
+                                    'gif')));
+            // delete user avatar extension from database
+
+        }
+
+        if (ModUtil::getVar('IWusers', 'usersCanManageName') == 1) {
+            if (!ModUtil::apiFunc('IWusers', 'user', 'changeRealName',
+                            array('userName' => $userName,
+                                'userSurname1' => $userSurname1,
+                                'userSurname2' => $userSurname2,
+                    )))
+                $errorMsg = 'Changing the real name has fauiled.';
+        }
+
+        if ($errorMsg != '') {
+            LogUtil::registerError($errorMsg);
+        } else {
+            //Successfull
+            LogUtil::registerStatus($this->__('The values have changed correctly'));
+        }
+
+        return System::redirect(ModUtil::url('IWusers', 'user', 'profile'));
+    }
+
+
+        /**
+     * Delete the users' avatars
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
+     * @param	avatar name
+     * @param	the extensions image files that must be deleted
+     * @return	The module information
+     */
+    public function deleteAvatar($args) {
+        $avatarName = FormUtil::getPassedValue('avatarName', isset($args['avatarName']) ? $args['avatarName'] : null, 'POST');
+        $extensions = FormUtil::getPassedValue('extensions', isset($args['extensions']) ? $args['extensions'] : null, 'POST');
+        // Security check
+        if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ) || !UserUtil::isLoggedIn()) {
+            throw new Zikula_Exception_Forbidden();
+        }
+        $count = 0;
+        foreach ($extensions as $extension) {
+            $file = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . $avatarName . '.' . $extension;
+            if (file_exists($file)) {
+                if (!unlink($file)) {
+                    return false;
+                } else {
+                    $count++;
+                }
+            }
+        }
+        if ($count == 0) {
+            return false;
+        }
+        return true;
+    }
+
+
+
     /**
      * Show the list of members in a group
      * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
@@ -160,11 +345,12 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                 'uid' => $member['id']);
         }
         $this->view->assign('members', $usersArray)
-        ->assign('gid', $gid);
+                ->assign('gid', $gid);
         if ($gid > 0) {
             $this->view->assign('groupName', $groupsInfo[$gid]);
         }
         $this->view->assign('friendsSystemAvailable', ModUtil::getVar('IWusers', 'friendsSystemAvailable'));
         return $this->view->fetch('IWusers_user_members.htm');
     }
+
 }

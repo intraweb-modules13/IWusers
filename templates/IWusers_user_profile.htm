@@ -1,0 +1,66 @@
+{getstatusmsg}
+<h2>{gt text="User configurable values"}</h2>
+<form  class="z-form" enctype="multipart/form-data" method="post" name="conf" id="conf" action="{modurl modname='IWusers' type='user' func='updateprofile'}">
+    <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
+    <div>
+        {if $usersCanManageName}
+            <fieldset>
+                <legend>{gt text="Change your real name"}</legend>
+                <div class="z-formrow">
+                    <label for="name">{gt text="Name"}</label>
+                    <input type="text" name="userName" value="{$userName}" />
+                </div>
+                <div class="z-formrow">
+                    <label for="name">{gt text="1st surname"}</label>
+                    <input type="text" name="userSurname1" value="{$userSurname1}" />
+                </div>
+                <div class="z-formrow">
+                    <label for="name">{gt text="2nd surname"}</label>
+                    <input type="text" name="userSurname2" value="{$userSurname2}" />
+                </div>
+            </fieldset>
+        {/if}
+        {if $canChangeAvatar}
+            <fieldset>
+                <legend>{gt text="Avatar replacement"}</legend>
+                <div style="float:left;">
+                    {if $photo neq ''}
+                        <img src="{modurl modname=IWmain type=user func=getPhoto fileName=$photo}" alt="" />
+                    {else}
+                        {img modname='IWmain' src='noImage.png' set='images'}
+                    {/if}
+                    <div>
+                        <input type="checkbox" name="deleteAvatar" value="1" />{gt text="Delete"}
+                    </div>
+                </div>
+                <div style="float:left; padding-left: 20px;">
+                    {if !$avatarChangeValidationNeeded || $photo_s eq ''}
+                        {if $photo eq ''}
+                            {gt text="Upload your avatar"}
+                        {else}
+                            {gt text="If you want, you can change your avatar from here:"}
+                        {/if}
+                        {if $avatarChangeValidationNeeded eq 1}
+                            <br />
+                            {gt text="(The avatar change required administrator validation)"}
+                        {/if}
+                        <div style="margin-top: 20px;">
+                            <input type="file" name="avatar" size="50">
+                        </div>
+                        <div style="margin-top: 20px;" class="z-informationmsg">
+                            {gt text="Your avatar's image sizes must be 90x120 px aproximately with one of the next formats: jpg, gif or png."}
+                        </div>
+                    {else}
+                        <img src="{modurl modname=IWmain type=user func=getPhoto fileName=$photo_s}" alt="" />
+                        <div>
+                            {gt text="Your avatar changement request is waiting for an administrator validation."}
+                        </div>
+                    {/if}
+                </div>
+            </fieldset>
+        {/if}
+    </div>
+    <div class="z-center z-buttons">
+        <a onclick="javascript: forms['conf'].submit();">{img modname='core' src='button_ok.png' set='icons/small' __alt="OK" __title="OK"} {gt text="OK"}</a>
+    </div>
+</form>

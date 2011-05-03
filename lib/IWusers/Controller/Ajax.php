@@ -142,4 +142,68 @@ class IWusers_Controller_Ajax extends Zikula_Controller_AbstractAjax {
                     'content1' => $content1));
     }
 
+        public function change($args) {
+        if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
+            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+        }
+
+        $chid = FormUtil::getPassedValue('chid', -1, 'GET');
+        if ($chid == -1) AjaxUtil::error('no change user id');
+        $toDo = FormUtil::getPassedValue('toDo', -1, 'GET');
+        if ($toDo == -1) AjaxUtil::error('no action defined');
+
+        $error = '';
+
+        if ($toDo == 'del') {
+            //delete the file
+            if (!ModUtil::func('IWusers', 'user', 'deleteAvatar',
+                                array('avatarName' => substr($chid, 0, -4),
+                                      'extensions' => array('jpg',
+                                                            'png',
+                                                            'gif')))) {
+                $error = $this->__('Error deleting avatar');
+            }
+
+            //delete the small picture
+            ModUtil::func('IWusers', 'user', 'deleteAvatar',
+                           array('avatarName' => substr($chid, 0, -4) . '_s',
+                                 'extensions' => array('jpg',
+                                                       'png',
+                                                       'gif')));
+        } else {
+            $file_extension = strtolower(substr(strrchr($chid, "."), 1));
+            $formats = '$jpg$$png$$gif$';
+            $formats = str_replace('$' . $file_extension . '$', '', $formats);
+            $len = strlen($formats) - 2;
+            $formatsArray = explode('$$', substr($formats, 1, $len));
+
+            //change file name
+            $changed = rename(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . $chid, ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . substr($chid, 1, strlen($chid)));
+            if ($changed) {
+                ModUtil::func('IWusers', 'user', 'deleteAvatar',
+                               array('avatarName' => substr($chid, 1, -4),
+                                     'extensions' => $formatsArray));
+            } else {
+                $error = $this->__('Error changing avatar');
+            }
+
+            //Change small pictures
+            $chid_s = substr($chid, 0, -4) . '_s.' . $file_extension;
+            rename(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . $chid_s, ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . substr($chid_s, 1, strlen($chid_s)));
+            ModUtil::func('IWusers', 'user', 'deleteAvatar',
+                           array('avatarName' => substr($chid_s, 1, -4),
+                                 'extensions' => $formatsArray));
+        }
+
+        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+        ModUtil::func('IWmain', 'user', 'userSetVar',
+                       array('module' => 'IWmain_block_news',
+                             'name' => 'have_news',
+                             'value' => 'ch',
+                             'sv' => $sv));
+
+
+        AjaxUtil::output(array('chid' => $chid,
+                               'error' => $error));
+    }
 }

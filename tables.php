@@ -12,7 +12,11 @@ function IWusers_tables() {
         'cognom1' => 'iw_cognom1',
         'cognom2' => 'iw_cognom2',
         'naixement' => 'iw_naixement',
-        'accio' => 'iw_accio');
+        'accio' => 'iw_accio',
+        'sex' => 'iw_sex',
+        'description' => 'iw_description',
+        'photoExtension' => 'iw_photoExtension',
+    );
 
     $tables['IWusers_column_def'] = array('suid' => "I NOTNULL AUTO PRIMARY",
         'uid' => "I NOTNULL DEFAULT '0'",
@@ -21,7 +25,11 @@ function IWusers_tables() {
         'cognom1' => "C(25) NOTNULL DEFAULT ''",
         'cognom2' => "C(25) NOTNULL DEFAULT ''",
         'naixement' => "C(8) NOTNULL DEFAULT ''",
-        'accio' => "I(1) NOTNULL DEFAULT '0'");
+        'accio' => "I(1) NOTNULL DEFAULT '0'",
+        'sex' => "I(1) NOTNULL DEFAULT '0'",
+        'description' => "X NOTNULL",
+        'photoExtension' => "C(5) NOTNULL DEFAULT ''",
+    );
 
     // IWusers table definition
     $tables['IWusers_friends'] = DBUtil::getLimitedTablename('IWusers_friends');

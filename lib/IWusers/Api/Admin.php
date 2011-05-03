@@ -154,6 +154,7 @@ class IWusers_Api_Admin extends Zikula_AbstractApi {
             $links[] = array('url' => ModUtil::url('Users', 'admin', 'newUser'), 'text' => $this->__('Create user'), 'id' => 'iwusers_newuser', 'class' => 'z-icon-es-user');
             $links[] = array('url' => ModUtil::url('IWusers', 'admin', 'main'), 'text' => $this->__('Show the list of users'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-view');
             $links[] = array('url' => ModUtil::url('IWusers', 'admin', 'config'), 'text' => $this->__('Configure the module'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-config');
+            $links[] = array('url' => ModUtil::url('IWusers', 'admin', 'changeAvatarView'), 'text' => $this->__('Avatar change request'), 'id' => 'iwmain_changeAvatar', 'class' => 'z-icon-es-regenerate');
         }
         return $links;
     }

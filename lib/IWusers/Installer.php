@@ -28,8 +28,12 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
         if (!DBUtil::createIndex('iw_fid', 'IWusers_friends', 'fid'))
             return false;
         //Create module vars
-        ModUtil::setVar('IWmain', 'friendsSystemAvailable', 1);
-        ModUtil::setVar('IWmain', 'invisibleGroupsInList', '$');
+        $this->setVar('friendsSystemAvailable', 1)
+                ->setVar('invisibleGroupsInList', '$')
+                ->setVar('usersCanManageName', 0)
+                ->setVar('allowUserChangeAvatar', '1')
+                ->setVar('avatarChangeValidationNeeded', '1')
+                ->setVar('usersPictureFolder', 'photos');
         return true;
     }
 
@@ -43,10 +47,13 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
         DBUtil::dropTable('IWusers');
         DBUtil::dropTable('IWusers_friends');
         //Create module vars
-        ModUtil::delVar('IWmain', 'friendsLabel');
-        ModUtil::delVar('IWmain', 'friendsSystemAvailable');
-        ModUtil::delVar('IWmain', 'invisibleGroupsInList', '$');
-        ModUtil::delVar('IWmain', 'usersCanManageName', 0);
+        $this->delVar('friendsSystemAvailable')
+                ->delVar('invisibleGroupsInList')
+                ->delVar('usersCanManageName')
+                ->delVar('allowUserChangeAvatar')
+                ->delVar('avatarChangeValidationNeeded')
+                ->delVar('usersPictureFolder');
+
         //Deletion successfull
         return true;
     }
@@ -59,4 +66,5 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
     function Upgrade($oldversion) {
         return true;
     }
+
 }
