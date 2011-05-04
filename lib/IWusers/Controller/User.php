@@ -27,12 +27,10 @@ class IWusers_Controller_User extends Zikula_AbstractController {
             $all = true;
         }
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $userGroups = ModUtil::func('IWmain', 'user', 'getAllUserGroups',
-                        array('sv' => $sv));
+        $userGroups = ModUtil::func('IWmain', 'user', 'getAllUserGroups', array('sv' => $sv));
         // Gets the groups
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $allGroups = ModUtil::func('IWmain', 'user', 'getAllGroups',
-                        array('sv' => $sv));
+        $allGroups = ModUtil::func('IWmain', 'user', 'getAllGroups', array('sv' => $sv));
         foreach ($allGroups as $group) {
             $groupsNames[$group['id']] = $group['name'];
         }
@@ -42,9 +40,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         foreach ($userGroups as $group) {
             if (strpos($invisibleGroupsInList, '$' . $group['id'] . '$') === false) {
                 $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-                $members = ModUtil::func('IWmain', 'user', 'getMembersGroup',
-                                array('sv' => $sv,
-                                    'gid' => $group['id']));
+                $members = ModUtil::func('IWmain', 'user', 'getMembersGroup', array('sv' => $sv,
+                            'gid' => $group['id']));
                 $groups[] = array('gid' => $group['id'],
                     'members' => count($members),
                     'name' => $groupsNames[$group['id']]);
@@ -63,24 +60,20 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         $uid = UserUtil::getVar('uid');
 
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $photo = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                        array('uname' => UserUtil::getVar('uname'),
-                            'sv' => $sv));
+        $photo = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => UserUtil::getVar('uname'),
+                    'sv' => $sv));
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                        array('uname' => '_' . UserUtil::getVar('uname'),
-                            'sv' => $sv));
+        $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => '_' . UserUtil::getVar('uname'),
+                    'sv' => $sv));
         //Check if gd library is available
-        if (extension_loaded('gd') && ModUtil::getVar('IWusers', 'allowUserChangeAvatar') == 1) {
+        if (extension_loaded('gd') && ModUtil::getVar('IWusers', 'allowUserChangeAvatar') == 1)
             $canChangeAvatar = true;
-        }
         //Check if the users picture folder exists
         if (!file_exists(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder')) || ModUtil::getVar('IWusers', 'usersPictureFolder') == '') {
             $canChangeAvatar = false;
         } else {
-            if (!is_writeable(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder'))) {
+            if (!is_writeable(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder')))
                 $canChangeAvatar = false;
-            }
         }
         // checks if user can change their real names
         $modid = ModUtil::getIdFromName('IWusers');
@@ -91,20 +84,17 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         $userSurname2 = '';
         if ($modinfo['state'] == 3) {
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $userName = ModUtil::func('IWmain', 'user', 'getUserInfo',
-                            array('uid' => UserUtil::getVar('uid'),
-                                'info' => 'n',
-                                'sv' => $sv));
+            $userName = ModUtil::func('IWmain', 'user', 'getUserInfo', array('uid' => UserUtil::getVar('uid'),
+                        'info' => 'n',
+                        'sv' => $sv));
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $userSurname1 = ModUtil::func('IWmain', 'user', 'getUserInfo',
-                            array('uid' => UserUtil::getVar('uid'),
-                                'info' => 'c1',
-                                'sv' => $sv));
+            $userSurname1 = ModUtil::func('IWmain', 'user', 'getUserInfo', array('uid' => UserUtil::getVar('uid'),
+                        'info' => 'c1',
+                        'sv' => $sv));
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $userSurname2 = ModUtil::func('IWmain', 'user', 'getUserInfo',
-                            array('uid' => UserUtil::getVar('uid'),
-                                'info' => 'c2',
-                                'sv' => $sv));
+            $userSurname2 = ModUtil::func('IWmain', 'user', 'getUserInfo', array('uid' => UserUtil::getVar('uid'),
+                        'info' => 'c2',
+                        'sv' => $sv));
         }
 
         return $this->view->assign('avatarChangeValidationNeeded', ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded'))
@@ -151,47 +141,39 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                     $imgSource = $_FILES['avatar']['tmp_name'];
                     $imgDest = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . $userFileName;
                     //if success $errorMsg = ''
-                    $errorMsg = ModUtil::func('IWmain', 'user', 'thumb',
-                                    array('imgSource' => $imgSource,
-                                        'imgDest' => $imgDest,
-                                        'new_width' => $new_width,
-                                        'imageName' => $fileName));
+                    $errorMsg = ModUtil::func('IWmain', 'user', 'thumb', array('imgSource' => $imgSource,
+                                'imgDest' => $imgDest,
+                                'new_width' => $new_width,
+                                'imageName' => $fileName));
                     if ($errorMsg == '') {
                         // save user avatar extension
-
                     }
                 }
             }
         } else {
-            ModUtil::func('IWusers', 'user', 'deleteAvatar',
-                            array('avatarName' => UserUtil::getVar('uname'),
-                                'extensions' => array('jpg',
-                                    'png',
-                                    'gif')));
-            ModUtil::func('IWusers', 'user', 'deleteAvatar',
-                            array('avatarName' => UserUtil::getVar('uname') . '_s',
-                                'extensions' => array('jpg',
-                                    'png',
-                                    'gif')));
-            ModUtil::func('IWusers', 'user', 'deleteAvatar',
-                            array('avatarName' => '_' . UserUtil::getVar('uname'),
-                                'extensions' => array('jpg',
-                                    'png',
-                                    'gif')));
-            ModUtil::func('IWusers', 'user', 'deleteAvatar',
-                            array('avatarName' => '_' . UserUtil::getVar('uname') . '_s',
-                                'extensions' => array('jpg',
-                                    'png',
-                                    'gif')));
+            ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => UserUtil::getVar('uname'),
+                'extensions' => array('jpg',
+                    'png',
+                    'gif')));
+            ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => UserUtil::getVar('uname') . '_s',
+                'extensions' => array('jpg',
+                    'png',
+                    'gif')));
+            ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => '_' . UserUtil::getVar('uname'),
+                'extensions' => array('jpg',
+                    'png',
+                    'gif')));
+            ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => '_' . UserUtil::getVar('uname') . '_s',
+                'extensions' => array('jpg',
+                    'png',
+                    'gif')));
             // delete user avatar extension from database
-
         }
 
         if (ModUtil::getVar('IWusers', 'usersCanManageName') == 1) {
-            if (!ModUtil::apiFunc('IWusers', 'user', 'changeRealName',
-                            array('userName' => $userName,
-                                'userSurname1' => $userSurname1,
-                                'userSurname2' => $userSurname2,
+            if (!ModUtil::apiFunc('IWusers', 'user', 'changeRealName', array('userName' => $userName,
+                        'userSurname1' => $userSurname1,
+                        'userSurname2' => $userSurname2,
                     )))
                 $errorMsg = 'Changing the real name has fauiled.';
         }
@@ -206,8 +188,7 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         return System::redirect(ModUtil::url('IWusers', 'user', 'profile'));
     }
 
-
-        /**
+    /**
      * Delete the users' avatars
      * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @param	avatar name
@@ -238,8 +219,6 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         return true;
     }
 
-
-
     /**
      * Show the list of members in a group
      * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
@@ -256,10 +235,9 @@ class IWusers_Controller_User extends Zikula_AbstractController {
 
         //Check if user belongs to the group
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $isMember = ModUtil::func('IWmain', 'user', 'isMember',
-                        array('sv' => $sv,
-                            'gid' => $gid,
-                            'uid' => UserUtil::getVar('uid')));
+        $isMember = ModUtil::func('IWmain', 'user', 'isMember', array('sv' => $sv,
+                    'gid' => $gid,
+                    'uid' => UserUtil::getVar('uid')));
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_COMMENT) && $isMember != 1 && $gid > 0) {
             throw new Zikula_Exception_Forbidden();
@@ -267,9 +245,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         if ($gid > 0) {
             //get group members
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $members = ModUtil::func('IWmain', 'user', 'getMembersGroup',
-                            array('sv' => $sv,
-                                'gid' => $gid));
+            $members = ModUtil::func('IWmain', 'user', 'getMembersGroup', array('sv' => $sv,
+                        'gid' => $gid));
         } else {
             if (ModUtil::getVar('IWusers', 'friendsSystemAvailable') != 1) {
                 LogUtil::registerError($this->__('Sorry! No authorization to access this module.'));
@@ -284,10 +261,9 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                 }
                 // Get all users names
                 $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-                $usersNames = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
-                                array('info' => 'ncc',
-                                    'sv' => $sv,
-                                    'list' => $usersList));
+                $usersNames = ModUtil::func('IWmain', 'user', 'getAllUsersInfo', array('info' => 'ncc',
+                            'sv' => $sv,
+                            'list' => $usersList));
                 foreach ($membersFriends as $friend) {
                     $members[] = array('name' => $usersNames[$friend['fuid']],
                         'id' => $friend['fuid']);
@@ -301,38 +277,32 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         }
         // Get all users info
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $usersNames = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
-                        array('info' => 'l',
-                            'sv' => $sv,
-                            'list' => $usersList));
+        $usersNames = ModUtil::func('IWmain', 'user', 'getAllUsersInfo', array('info' => 'l',
+                    'sv' => $sv,
+                    'list' => $usersList));
         // Get groups information
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $groupsInfo = ModUtil::func('IWmain', 'user', 'getAllGroupsInfo',
-                        array('sv' => $sv));
+        $groupsInfo = ModUtil::func('IWmain', 'user', 'getAllGroupsInfo', array('sv' => $sv));
         $folder = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWmain', 'usersPictureFolder');
         foreach ($members as $member) {
             //get the user small photo
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                            array('uname' => $usersNames[$member['id']] . '_s',
-                                'sv' => $sv));
+            $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => $usersNames[$member['id']] . '_s',
+                        'sv' => $sv));
             //if the small photo not exists, check if the normal size foto exists. In this case create the small one
             if ($photo_s == '') {
                 $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-                $photo = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                                array('uname' => $usersNames[$member['id']],
-                                    'sv' => $sv));
+                $photo = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => $usersNames[$member['id']],
+                            'sv' => $sv));
                 if ($photo != '' && is_writable($folder)) {
                     //create the small photo and take it
                     $file_extension = strtolower(substr(strrchr($photo, "."), 1));
-                    $e = ModUtil::func('IWmain', 'user', 'thumb',
-                                    array('imgSource' => $folder . '/' . $usersNames[$member['id']] . '.' . $file_extension,
-                                        'imgDest' => $folder . '/' . $usersNames[$member['id']] . '_s.' . $file_extension,
-                                        'new_width' => 30));
+                    $e = ModUtil::func('IWmain', 'user', 'thumb', array('imgSource' => $folder . '/' . $usersNames[$member['id']] . '.' . $file_extension,
+                                'imgDest' => $folder . '/' . $usersNames[$member['id']] . '_s.' . $file_extension,
+                                'new_width' => 30));
                     $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-                    $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                                    array('uname' => $usersNames[$member['id']] . '_s',
-                                        'sv' => $sv));
+                    $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => $usersNames[$member['id']] . '_s',
+                                'sv' => $sv));
                 }
             }
             // get user friends

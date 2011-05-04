@@ -16,7 +16,7 @@ class IWusers_Api_Admin extends Zikula_AbstractApi {
         $items = $args;
 
         if (!DBUtil::insertObject($items, 'IWusers', 'suid')) {
-            return LogUtil::registerError(_CREATEFAILED);
+            return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
         }
 
         // Return the id of the newly created item to the calling process
