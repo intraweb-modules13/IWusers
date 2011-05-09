@@ -134,7 +134,7 @@ class IWusers_Controller_User extends Zikula_AbstractController {
             // update the attached file to the server
             if ($fileName != '') {
                 for ($i = 0; $i < 2; $i++) {
-                    $fileAvatarName = (ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded') == 1) ? '_' . UserUtil::getVar('uname') : UserUtil::getVar('uname');
+                    $fileAvatarName = UserUtil::getVar('uname');
                     $userFileName = ($i == 0) ? $fileAvatarName . '.' . $file_extension : $fileAvatarName . '_s.' . $file_extension;
                     $new_width = ($i == 0) ? 90 : 30;
                     //source and destination
@@ -147,27 +147,22 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                                 'imageName' => $fileName));
                     if ($errorMsg == '') {
                         // save user avatar extension
+                        if (!ModUtil::apiFunc('IWusers', 'user', 'changeAvatar', array('avatar' => UserUtil::getVar('uname') . '.' . $file_extension,
+                                )))
+                            $errorMsg = 'Changing the avatar has failed.';
                     }
                 }
             }
         } else {
-            ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => UserUtil::getVar('uname'),
-                'extensions' => array('jpg',
-                    'png',
-                    'gif')));
-            ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => UserUtil::getVar('uname') . '_s',
-                'extensions' => array('jpg',
-                    'png',
-                    'gif')));
-            ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => '_' . UserUtil::getVar('uname'),
-                'extensions' => array('jpg',
-                    'png',
-                    'gif')));
-            ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => '_' . UserUtil::getVar('uname') . '_s',
-                'extensions' => array('jpg',
-                    'png',
-                    'gif')));
-            // delete user avatar extension from database
+            // get user avatar and delete avatar file
+            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            $userAvatar = ModUtil::func('IWmain', 'user', 'getUserInfo', array('uid' => UserUtil::getVar('uid'),
+                        'info' => 'a',
+                        'sv' => $sv));
+            if (unlink(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . $userAvatar)) {
+                // delete user avatar extension from database
+                ModUtil::apiFunc('IWusers', 'user', 'changeAvatar', array('avatar' => ''));
+            }
         }
 
         if (ModUtil::getVar('IWusers', 'usersCanManageName') == 1) {
@@ -175,7 +170,7 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                         'userSurname1' => $userSurname1,
                         'userSurname2' => $userSurname2,
                     )))
-                $errorMsg = 'Changing the real name has fauiled.';
+                $errorMsg = 'Changing the real name has failed.';
         }
 
         if ($errorMsg != '') {

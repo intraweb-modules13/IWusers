@@ -259,8 +259,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ) || !ModUtil::getVar('IWusers', 'usersCanManageName') == 1) {
             throw new Zikula_Exception_Forbidden();
         }
-        $user = ModUtil::apiFunc('IWusers', 'user', 'get',
-                        array('uid' => UserUtil::getvar('uid')));
+        $user = ModUtil::apiFunc('IWusers', 'user', 'get', array('uid' => UserUtil::getvar('uid')));
         if (!$user) {
             $items = array('uid' => UserUtil::getVar('uid'));
             // create user
@@ -274,6 +273,23 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         $item = array('nom' => $args['userName'],
             'cognom1' => $args['userSurname1'],
             'cognom2' => $args['userSurname2']);
+        if (!DBUtil::updateObject($item, 'IWusers', $where)) {
+            return LogUtil::registerError($this->__('Error! Update attempt failed.'));
+        }
+        return true;
+    }
+
+    public function changeAvatar($args) {
+        // Security check
+        if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ) || !ModUtil::getVar('IWusers', 'allowUserChangeAvatar') == 1) {
+            throw new Zikula_Exception_Forbidden();
+        }
+        $pntables = DBUtil::getTables();
+        $c = $pntables['IWusers_column'];
+        $where = "WHERE $c[uid]=" . UserUtil::getVar('uid');
+        $avatarvalidated = (ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded') == 1) ? 0 : 1;
+        $item = array('avatar' => $args['avatar'],
+            'avatarvalidated' => $avatarvalidated);
         if (!DBUtil::updateObject($item, 'IWusers', $where)) {
             return LogUtil::registerError($this->__('Error! Update attempt failed.'));
         }
