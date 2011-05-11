@@ -78,8 +78,11 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         // checks if user can change their real names
         $modid = ModUtil::getIdFromName('IWusers');
         $modinfo = ModUtil::getInfo($modid);
-        $usersCanManageName = (ModUtil::getVar('IWusers', 'usersCanManageName') == 1 && $modinfo['state'] == 3) ? true : false;
-        $userName = '';
+        $usersCanManageName = (ModUtil::getVar('IWusers', 'usersCanManageName') == 1) ? true : false;
+        $allowUserSetTheirSex = (ModUtil::getVar('IWusers', 'allowUserSetTheirSex') == 1) ? true : false;
+        $allowUserDescribeTheirSelves = (ModUtil::getVar('IWusers', 'allowUserDescribeTheirSelves') == 1) ? true : false;
+ 
+
         $userSurname1 = '';
         $userSurname2 = '';
         if ($modinfo['state'] == 3) {
@@ -102,6 +105,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                 ->assign('photo_s', $photo_s)
                 ->assign('canChangeAvatar', $canChangeAvatar)
                 ->assign('usersCanManageName', $usersCanManageName)
+                ->assign('allowUserSetTheirSex', $allowUserSetTheirSex)
+                ->assign('allowUserDescribeTheirSelves', $allowUserDescribeTheirSelves)
                 ->assign('userName', $userName)
                 ->assign('userSurname1', $userSurname1)
                 ->assign('userSurname2', $userSurname2)

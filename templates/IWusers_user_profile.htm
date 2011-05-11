@@ -3,20 +3,33 @@
 <form  class="z-form" enctype="multipart/form-data" method="post" name="conf" id="conf" action="{modurl modname='IWusers' type='user' func='updateprofile'}">
     <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
     <div>
+        {if $allowUserSetTheirSex}
+        <fieldset>
+            <legend>{gt text="Your sex"}</legend>
+            <div class="z-formrow">
+                <label for="sex">{gt text="Sexe"}</label>
+                <select id="sex" name="sex">
+                    <option value="0">{gt text="tria una opció..."}</option>
+                    <option value="M">{gt text="Home"}</option>
+                    <option value="F">{gt text="Dona"}</option>
+                </select>
+            </div>
+        </fieldset>
+        {/if}
         {if $usersCanManageName}
         <fieldset>
             <legend>{gt text="Change your real name"}</legend>
             <div class="z-formrow">
-                <label for="name">{gt text="Name"}</label>
-                <input type="text" name="userName" value="{$userName}" />
+                <label for="userName">{gt text="Name"}</label>
+                <input id="username" type="text" name="userName" value="{$userName}" />
             </div>
             <div class="z-formrow">
-                <label for="name">{gt text="1st surname"}</label>
-                <input type="text" name="userSurname1" value="{$userSurname1}" />
+                <label for="userSurname1">{gt text="1st surname"}</label>
+                <input id="userSurname1" type="text" name="userSurname1" value="{$userSurname1}" />
             </div>
             <div class="z-formrow">
-                <label for="name">{gt text="2nd surname"}</label>
-                <input type="text" name="userSurname2" value="{$userSurname2}" />
+                <label for="userSurname2">{gt text="2nd surname"}</label>
+                <input id="userSurname2" type="text" name="userSurname2" value="{$userSurname2}" />
             </div>
         </fieldset>
         {/if}
@@ -56,6 +69,15 @@
                     {gt text="Your avatar changement request is waiting for an administrator validation."}
                 </div>
                 {/if}
+            </div>
+        </fieldset>
+        {/if}
+        {if $allowUserDescribeTheirSelves}
+        <fieldset>
+            <legend>{gt text="Describe yourself"}</legend>
+            <div class="z-formrow">
+                <label for="description">{gt text="La teva descripció"}</label>
+                <textarea rows="7" cols="70">{$description}</textarea>
             </div>
         </fieldset>
         {/if}

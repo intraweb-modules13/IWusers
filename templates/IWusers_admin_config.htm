@@ -13,6 +13,14 @@
             <input type="checkbox" name="usersCanManageName" {if $usersCanManageName eq 1}checked{/if} value="1" />
         </div>
         <div class="z-formrow">
+            <label for="allowUserSetTheirSex">{gt text="Users can set their sex"}:</label>
+            <input type="checkbox" name="allowUserSetTheirSex" {if $allowUserSetTheirSex eq 1}checked{/if} value="1" />
+        </div>
+        <div class="z-formrow">
+            <label for="allowUserDescribeTheirSelves">{gt text="Users can describe theirselves"}:</label>
+            <input type="checkbox" name="allowUserDescribeTheirSelves" {if $allowUserDescribeTheirSelves eq 1}checked{/if} value="1" />
+        </div>
+        <div class="z-formrow">
             <label for="invisibleGroupsInList">{gt text="Invisible groups in users search"}:</label>
             <div class="z-formnote">
                 {foreach item=group from=$groupsArray}
@@ -22,7 +30,7 @@
         </div>
 
 
-                <div class="z-formrow">
+        <div class="z-formrow">
             <label for="usersPictureFolder">{gt text="Folder where to look for the users pictures"}{if not $multizk} <span><strong>{$documentRoot}/</strong></span>{/if}</label>
             <input type="text" name="usersPictureFolder" value="{$usersPictureFolder}" size="30" maxlength="30" />
             {if $noPictureFolder}

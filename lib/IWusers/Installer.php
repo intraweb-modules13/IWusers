@@ -32,6 +32,8 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
                 ->setVar('invisibleGroupsInList', '$')
                 ->setVar('usersCanManageName', 0)
                 ->setVar('allowUserChangeAvatar', '1')
+                ->setVar('allowUserSetTheirSex', '0')
+                ->setVar('allowUserDescribeTheirSelves', '1')
                 ->setVar('avatarChangeValidationNeeded', '1')
                 ->setVar('usersPictureFolder', 'photos');
         return true;

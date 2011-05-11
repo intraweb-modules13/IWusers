@@ -485,6 +485,8 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
                 ->assign('allowUserChangeAvatar', ModUtil::getVar('IWusers', 'allowUserChangeAvatar'))
                 ->assign('avatarChangeValidationNeeded', ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded'))
                 ->assign('usersPictureFolder', ModUtil::getVar('IWusers', 'usersPictureFolder'))
+                ->assign('allowUserSetTheirSex', ModUtil::getVar('IWusers', 'allowUserSetTheirSex'))
+                ->assign('allowUserDescribeTheirSelves', ModUtil::getVar('IWusers', 'allowUserDescribeTheirSelves'))
                 ->assign('noPictureFolder', $noPictureFolder)
                 ->assign('noWriteablePictureFolder', $noWriteablePictureFolder)
                 ->assign('gdAvailable', $gdAvailable)
@@ -504,6 +506,8 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         $allowUserChangeAvatar = FormUtil::getPassedValue('allowUserChangeAvatar', isset($args['allowUserChangeAvatar']) ? $args['allowUserChangeAvatar'] : 0, 'POST');
         $avatarChangeValidationNeeded = FormUtil::getPassedValue('avatarChangeValidationNeeded', isset($args['avatarChangeValidationNeeded']) ? $args['avatarChangeValidationNeeded'] : 0, 'POST');
         $usersPictureFolder = FormUtil::getPassedValue('usersPictureFolder', isset($args['usersPictureFolder']) ? $args['usersPictureFolder'] : null, 'POST');
+        $allowUserSetTheirSex = FormUtil::getPassedValue('allowUserSetTheirSex', isset($args['allowUserSetTheirSex']) ? $args['allowUserSetTheirSex'] : 0, 'POST');
+        $allowUserDescribeTheirSelves = FormUtil::getPassedValue('allowUserDescribeTheirSelves', isset($args['allowUserDescribeTheirSelves']) ? $args['allowUserDescribeTheirSelves'] : 0, 'POST');
 
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) {
@@ -519,7 +523,9 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
                 ->setVar('usersPictureFolder', $usersPictureFolder)
                 ->setVar('allowUserChangeAvatar', $allowUserChangeAvatar)
                 ->setVar('avatarChangeValidationNeeded', $avatarChangeValidationNeeded)
-                ->setVar('usersCanManageName', $usersCanManageName);
+                ->setVar('usersCanManageName', $usersCanManageName)
+                ->setVar('allowUserSetTheirSex', $allowUserSetTheirSex)
+                ->setVar('allowUserDescribeTheirSelves', $allowUserDescribeTheirSelves);
         LogUtil::registerStatus($this->__('The configuration has changed'));
         return System::redirect(ModUtil::url('IWusers', 'admin', 'config'));
     }
@@ -538,7 +544,7 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         if (!$avatars) {
             $avatars = array();
         }
-                $path = ModUtil::getVar('IWusers', 'usersPictureFolder') . '/';
+        $path = ModUtil::getVar('IWusers', 'usersPictureFolder') . '/';
         $usersList = '$$';
         //print_r($avatars);
         foreach ($avatars as $avatar) {
