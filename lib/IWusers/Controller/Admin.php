@@ -26,112 +26,97 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         $usersArray = array();
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         if ($inici == null) {
-            $inici = ModUtil::func('IWmain', 'user', 'userInitVar',
-                            array('sv' => $sv,
-                                'module' => 'IWusers',
-                                'name' => 'inici',
-                                'default' => '0',
-                                'lifetime' => '1000'));
+            $inici = ModUtil::func('IWmain', 'user', 'userInitVar', array('sv' => $sv,
+                        'module' => 'IWusers',
+                        'name' => 'inici',
+                        'default' => '0',
+                        'lifetime' => '1000'));
         } else {
-            ModUtil::func('IWmain', 'user', 'userSetVar',
-                            array('sv' => $sv,
-                                'module' => 'IWusers',
-                                'name' => 'inici',
-                                'value' => $inici,
-                                'lifetime' => '1000'));
+            ModUtil::func('IWmain', 'user', 'userSetVar', array('sv' => $sv,
+                'module' => 'IWusers',
+                'name' => 'inici',
+                'value' => $inici,
+                'lifetime' => '1000'));
         }
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         if ($filtre == null) {
-            $filtre = ModUtil::func('IWmain', 'user', 'userInitVar',
-                            array('sv' => $sv,
-                                'module' => 'IWusers',
-                                'name' => 'filtre',
-                                'default' => '0',
-                                'lifetime' => '1000'));
+            $filtre = ModUtil::func('IWmain', 'user', 'userInitVar', array('sv' => $sv,
+                        'module' => 'IWusers',
+                        'name' => 'filtre',
+                        'default' => '0',
+                        'lifetime' => '1000'));
         } else {
-            ModUtil::func('IWmain', 'user', 'userSetVar',
-                            array('sv' => $sv,
-                                'module' => 'IWusers',
-                                'name' => 'filtre',
-                                'value' => $filtre,
-                                'lifetime' => '1000'));
+            ModUtil::func('IWmain', 'user', 'userSetVar', array('sv' => $sv,
+                'module' => 'IWusers',
+                'name' => 'filtre',
+                'value' => $filtre,
+                'lifetime' => '1000'));
         }
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         if ($campfiltre == null || $campfiltre == '') {
-            $campfiltre = ModUtil::func('IWmain', 'user', 'userInitVar',
-                            array('sv' => $sv,
-                                'module' => 'IWusers',
-                                'name' => 'campfiltre',
-                                'default' => 'l',
-                                'lifetime' => '1000'));
+            $campfiltre = ModUtil::func('IWmain', 'user', 'userInitVar', array('sv' => $sv,
+                        'module' => 'IWusers',
+                        'name' => 'campfiltre',
+                        'default' => 'l',
+                        'lifetime' => '1000'));
         } else {
-            ModUtil::func('IWmain', 'user', 'userSetVar',
-                            array('sv' => $sv,
-                                'module' => 'IWusers',
-                                'name' => 'campfiltre',
-                                'value' => $campfiltre,
-                                'lifetime' => '1000'));
+            ModUtil::func('IWmain', 'user', 'userSetVar', array('sv' => $sv,
+                'module' => 'IWusers',
+                'name' => 'campfiltre',
+                'value' => $campfiltre,
+                'lifetime' => '1000'));
         }
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         if ($numitems == null || $numitems == '') {
-            $numitems = ModUtil::func('IWmain', 'user', 'userInitVar',
-                            array('sv' => $sv,
-                                'module' => 'IWusers',
-                                'name' => 'numitems',
-                                'default' => '20',
-                                'lifetime' => '1000'));
+            $numitems = ModUtil::func('IWmain', 'user', 'userInitVar', array('sv' => $sv,
+                        'module' => 'IWusers',
+                        'name' => 'numitems',
+                        'default' => '20',
+                        'lifetime' => '1000'));
         } else {
-            ModUtil::func('IWmain', 'user', 'userSetVar',
-                            array('sv' => $sv,
-                                'module' => 'IWusers',
-                                'name' => 'numitems',
-                                'value' => $numitems,
-                                'lifetime' => '1000'));
+            ModUtil::func('IWmain', 'user', 'userSetVar', array('sv' => $sv,
+                'module' => 'IWusers',
+                'name' => 'numitems',
+                'value' => $numitems,
+                'lifetime' => '1000'));
         }
         // Get all users in database
         $allUsers = ModUtil::apiFunc('IWusers', 'user', 'getAllUsers');
         // Get all users info
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $usersUname = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
-                        array('info' => 'l',
-                            'sv' => $sv));
+        $usersUname = ModUtil::func('IWmain', 'user', 'getAllUsersInfo', array('info' => 'l',
+                    'sv' => $sv));
         // Get all the groups information
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $groupsInfo = ModUtil::func('IWmain', 'user', 'getAllGroupsInfo',
-                        array('sv' => $sv));
+        $groupsInfo = ModUtil::func('IWmain', 'user', 'getAllGroupsInfo', array('sv' => $sv));
         // Create the users that are in users table but are not in IWusers table
         $notExist = array_diff_key($usersUname, $allUsers);
         foreach ($notExist as $key => $value) {
-            ModUtil::apiFunc('IWusers', 'admin', 'create',
-                            array('uid' => $key));
+            ModUtil::apiFunc('IWusers', 'admin', 'create', array('uid' => $key));
         }
         // Count the users for the criteria
-        $usersNumber = ModUtil::apiFunc('IWusers', 'user', 'countUsers',
-                        array('campfiltre' => $campfiltre,
-                            'filtre' => $filtre));
+        $usersNumber = ModUtil::apiFunc('IWusers', 'user', 'countUsers', array('campfiltre' => $campfiltre,
+                    'filtre' => $filtre));
         // Get all users needed
-        $users = ModUtil::apiFunc('IWusers', 'user', 'getAll',
-                        array('campfiltre' => $campfiltre,
-                            'filtre' => $filtre,
-                            'inici' => $inici,
-                            'numitems' => $numitems));
+        $users = ModUtil::apiFunc('IWusers', 'user', 'getAll', array('campfiltre' => $campfiltre,
+                    'filtre' => $filtre,
+                    'inici' => $inici,
+                    'numitems' => $numitems));
         $usersList = '$$';
         foreach ($users as $user) {
             $usersList .= $user['uid'] . '$$';
         }
         // Get all users mails
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $usersMail = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
-                        array('info' => 'e',
-                            'sv' => $sv,
-                            'list' => $usersList));
+        $usersMail = ModUtil::func('IWmain', 'user', 'getAllUsersInfo', array('info' => 'e',
+                    'sv' => $sv,
+                    'list' => $usersList));
         $folder = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWmain', 'usersPictureFolder');
         // Check all users disponibility in extra database. If user doesn't exists create it
         foreach ($users as $user) {
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $groups = ModUtil::func('IWmain', 'user', 'getAllUserGroups',
-                            array('sv' => $sv,
-                                'uid' => $user['uid']));
+            $groups = ModUtil::func('IWmain', 'user', 'getAllUserGroups', array('sv' => $sv,
+                        'uid' => $user['uid']));
             $userGroups = array();
             foreach ($groups as $group) {
                 if ($group['id']) {
@@ -141,26 +126,22 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
             }
             //get the user small photo
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                            array('uname' => $usersUname[$user['uid']] . '_s',
-                                'sv' => $sv));
+            $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => $usersUname[$user['uid']] . '_s',
+                        'sv' => $sv));
             //if the small photo not exists, check if the normal size foto exists. In this case create the small one
             if ($photo_s == '') {
                 $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-                $photo = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                                array('uname' => $usersUname[$user['uid']],
-                                    'sv' => $sv));
+                $photo = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => $usersUname[$user['uid']],
+                            'sv' => $sv));
                 if ($photo != '' && is_writable($folder)) {
                     //create the small photo and take it
                     $file_extension = strtolower(substr(strrchr($photo, "."), 1));
-                    $e = ModUtil::func('IWmain', 'user', 'thumb',
-                                    array('imgSource' => $folder . '/' . $usersUname[$user['uid']] . '.' . $file_extension,
-                                        'imgDest' => $folder . '/' . $usersUname[$user['uid']] . '_s.' . $file_extension,
-                                        'new_width' => 30));
+                    $e = ModUtil::func('IWmain', 'user', 'thumb', array('imgSource' => $folder . '/' . $usersUname[$user['uid']] . '.' . $file_extension,
+                                'imgDest' => $folder . '/' . $usersUname[$user['uid']] . '_s.' . $file_extension,
+                                'new_width' => 30));
                     $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-                    $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                                    array('uname' => $usersUname[$user['uid']] . '_s',
-                                        'sv' => $sv));
+                    $photo_s = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => $usersUname[$user['uid']] . '_s',
+                                'sv' => $sv));
                 }
             }
             $usersArray[] = array('uid' => $user['uid'],
@@ -176,11 +157,10 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         $view = Zikula_View::getInstance('IWusers', false);
         $leters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-        $pager = ModUtil::func('IWusers', 'admin', 'pager',
-                        array('inici' => $inici,
-                            'rpp' => $numitems,
-                            'usersNumber' => $usersNumber,
-                            'urltemplate' => 'index.php?module=IWusers&type=admin&func=main&inici=%%'));
+        $pager = ModUtil::func('IWusers', 'admin', 'pager', array('inici' => $inici,
+                    'rpp' => $numitems,
+                    'usersNumber' => $usersNumber,
+                    'urltemplate' => 'index.php?module=IWusers&type=admin&func=main&inici=%%'));
         $numitems_MS = array(array('id' => '10',
                 'name' => '10'),
             array('id' => '20',
@@ -240,8 +220,7 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
             return System::redirect(ModUtil::url('IWusers', 'admin', 'main'));
         }
         // get users registers
-        $users = ModUtil::apiFunc('IWusers', 'user', 'get',
-                        array('multi' => $userId));
+        $users = ModUtil::apiFunc('IWusers', 'user', 'get', array('multi' => $userId));
         if ($users == false) {
             LogUtil::registerError($this->__('No users found'));
             return System::redirect(ModUtil::url('IWusers', 'admin', 'main'));
@@ -252,15 +231,13 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         }
         // Get all users info
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $usersNames = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
-                        array('info' => 'l',
-                            'sv' => $sv,
-                            'list' => $usersList));
+        $usersNames = ModUtil::func('IWmain', 'user', 'getAllUsersInfo', array('info' => 'l',
+                    'sv' => $sv,
+                    'list' => $usersList));
         foreach ($users as $user) {
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $photo = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                            array('uname' => $usersNames[$user['uid']],
-                                'sv' => $sv));
+            $photo = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => $usersNames[$user['uid']],
+                        'sv' => $sv));
             $usersArray [] = array('uname' => $user['uid'],
                 'uid' => $user['uid'],
                 'nom' => $user['nom'],
@@ -306,11 +283,10 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         $this->checkCsrfToken();
 
         $error = false;
-        if (!ModUtil::apiFunc('IWusers', 'admin', 'updateUser',
-                        array('uid' => $uid,
-                            'nom' => $nom,
-                            'cognom1' => $cognom1,
-                            'cognom2' => $cognom2))) {
+        if (!ModUtil::apiFunc('IWusers', 'admin', 'updateUser', array('uid' => $uid,
+                    'nom' => $nom,
+                    'cognom1' => $cognom1,
+                    'cognom2' => $cognom2))) {
             LogUtil::registerError($this->__('There was some mistake while editing'));
             return System::redirect(ModUtil::url('IWusers', 'admin', 'main'));
         }
@@ -322,10 +298,9 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
 
         // Get all users info
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $usersNames = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
-                        array('info' => 'l',
-                            'sv' => $sv,
-                            'list' => $usersList));
+        $usersNames = ModUtil::func('IWmain', 'user', 'getAllUsersInfo', array('info' => 'l',
+                    'sv' => $sv,
+                    'list' => $usersList));
 
         $folder = ModUtil::getVar('IWmain', 'tempFolder');
 
@@ -339,14 +314,13 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
                 if ($fileName != '' && ($file_extension == 'png' || $file_extension == 'gif' || $file_extension == 'jpg')) {
                     // update the attached file to the server
                     $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-                    $update = ModUtil::func('IWmain', 'user', 'updateFile',
-                                    array('sv' => $sv,
-                                        'folder' => $folder,
-                                        'fileRealName' => $_FILES['avatar_' . $u]['name'],
-                                        'fileNameTemp' => $_FILES['avatar_' . $u]['tmp_name'],
-                                        'size' => $_FILES['avatar_' . $u]['size'],
-                                        'allow' => '|' . $file_extension,
-                                        'fileName' => $usersNames[$u] . '.' . $file_extension));
+                    $update = ModUtil::func('IWmain', 'user', 'updateFile', array('sv' => $sv,
+                                'folder' => $folder,
+                                'fileRealName' => $_FILES['avatar_' . $u]['name'],
+                                'fileNameTemp' => $_FILES['avatar_' . $u]['tmp_name'],
+                                'size' => $_FILES['avatar_' . $u]['size'],
+                                'allow' => '|' . $file_extension,
+                                'fileName' => $usersNames[$u] . '.' . $file_extension));
 
                     //the function returns the error string if the update fails and and empty string if success
                     if ($update['msg'] != '') {
@@ -367,23 +341,20 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
                         $imgSource = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . $userFileName;
 
                         //if success $errorMsg = ''
-                        $errorMsg = ModUtil::func('IWmain', 'user', 'thumb',
-                                        array('imgSource' => $imgSource,
-                                            'imgDest' => $imgSource,
-                                            'new_width' => $new_width,
-                                            'deleteOthers' => 1));
+                        $errorMsg = ModUtil::func('IWmain', 'user', 'thumb', array('imgSource' => $imgSource,
+                                    'imgDest' => $imgSource,
+                                    'new_width' => $new_width,
+                                    'deleteOthers' => 1));
                     }
 
                     //delete the avatar file in temporal folder
                     unlink(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'tempFolder') . '/' . $nom_fitxer);
                 }
             } else {
-                ModUtil::func('IWusers', 'user', 'deleteAvatar',
-                                array('avatarName' => $usersNames[$u],
-                                    'extensions' => array('jpg', 'png', 'gif')));
-                ModUtil::func('IWusers', 'user', 'deleteAvatar',
-                                array('avatarName' => $usersNames[$u] . '_s',
-                                    'extensions' => array('jpg', 'png', 'gif')));
+                ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => $usersNames[$u],
+                    'extensions' => array('jpg', 'png', 'gif')));
+                ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => $usersNames[$u] . '_s',
+                    'extensions' => array('jpg', 'png', 'gif')));
             }
         }
 
@@ -497,8 +468,7 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         $invisibleGroupsInList = ModUtil::getVar('IWusers', 'invisibleGroupsInList');
         $usersCanManageName = ModUtil::getVar('IWusers', 'usersCanManageName');
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        $groups = ModUtil::func('IWmain', 'user', 'getAllGroups',
-                        array('sv' => $sv));
+        $groups = ModUtil::func('IWmain', 'user', 'getAllGroups', array('sv' => $sv));
         foreach ($groups as $group) {
             $checked = false;
             if (strpos($invisibleGroupsInList, '$' . $group['id'] . '$') != false) {
@@ -554,31 +524,6 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         return System::redirect(ModUtil::url('IWusers', 'admin', 'config'));
     }
 
-        /**
-     * Get the files in users pictures folder for avatar replacement
-     * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
-     * @return:		An array with the files from a change avatar request
-     */
-    public function getChangeAvatarRequest() {
-        // Security check
-        if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
-            throw new Zikula_Exception_Forbidden();
-        }
-        $folder = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder');
-        //Get information files
-        $fileList = ModUtil::func('IWmain', 'admin', 'dir_list',
-                        array('folder' => $folder));
-        $filesArray = array();
-        if ($fileList) {
-            foreach ($fileList['file'] as $file) {
-                if (substr($file['name'], 0, 1) == '_' && substr($file['name'], -6, -4) != '_s') {
-                    $filesArray[] = array($file['name']);
-                }
-            }
-        }
-        return $filesArray;
-    }
-
     /**
      * List the users who have asked for a avatar replacement
      * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
@@ -589,41 +534,27 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
             throw new Zikula_Exception_Forbidden();
         }
-        $files = ModUtil::func('IWusers', 'admin', 'getChangeAvatarRequest');
-        // Create output object
-        $view = Zikula_View::getInstance('IWmain', false);
+        $avatars = ModUtil::apiFunc('IWusers', 'admin', 'getNotValidatedAvatars');
+        if (!$avatars) {
+            $avatars = array();
+        }
+                $path = ModUtil::getVar('IWusers', 'usersPictureFolder') . '/';
         $usersList = '$$';
-        $filesArray = array();
-        foreach ($files as $file) {
-            $userName = substr($file[0], 1, -4);
-            $userId = UserUtil::getIdFromName($userName);
-            $usersList .= $userId . '$$';
-            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $photo = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                            array('uname' => $userName,
-                                'sv' => $sv));
-            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $photo_new = ModUtil::func('IWmain', 'user', 'getUserPicture',
-                            array('uname' => '_' . $userName,
-                                'sv' => $sv));
-            if ($userId != '') {
-                $filesArray[] = array('uid' => $userId,
-                    'photo' => $photo,
-                    'photo_new' => $photo_new,
-                    'fileName' => $file[0]);
-            }
+        //print_r($avatars);
+        foreach ($avatars as $avatar) {
+            $usersList .= $avatar['uid'] . '$$';
+            $avatars[$avatar['suid']]['avatarfile'] = $path . $avatar['avatar'];
+            $avatars[$avatar['suid']]['newavatarfile'] = $path . '_' . $avatar['newavatar'];
         }
-        $users = '';
-        if (count($files) > 0) {
-            //get all users information
-            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $users = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
-                            array('sv' => $sv,
-                                'info' => 'ncc',
-                                'list' => $usersList));
-        }
+        //get all users information
+        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+        $users = ModUtil::func('IWmain', 'user', 'getAllUsersInfo', array('sv' => $sv,
+                    'info' => 'ncc',
+                    'list' => $usersList));
+
         return $this->view->assign('users', $users)
-                ->assign('filesArray', $filesArray)
+                ->assign('avatars', $avatars)
+                ->assign('path', $path)
                 ->fetch('IWusers_admin_changeAvatarView.htm');
     }
 

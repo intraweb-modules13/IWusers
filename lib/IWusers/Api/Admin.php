@@ -158,5 +158,25 @@ class IWusers_Api_Admin extends Zikula_AbstractApi {
         }
         return $links;
     }
+    
+    public function getNotValidatedAvatars () {
+                // Security check
+        if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
+            throw new Zikula_Exception_Forbidden();
+        }
+
+        $pntable = DBUtil::getTables();
+        $c = $pntable['IWusers_column'];
+        $where = "$c[newavatar]<>''";
+
+        $items = DBUtil::selectObjectArray('IWusers', $where, '', '-1', '-1', 'suid');
+        // Check for an error with the database code, and if so set an appropriate
+        // error message and return
+        if ($items === false) {
+            return LogUtil::registerError($this->__('Error! Could not load items.'));
+        }
+        // Return the items
+        return $items;
+    }
 
 }

@@ -122,6 +122,7 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         $this->checkCsrfToken();
 
         $uid = UserUtil::getVar('uid');
+        $path = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/';
 
         if ($deleteAvatar != 1) {
             //gets the attached file array
@@ -139,7 +140,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                     $new_width = ($i == 0) ? 90 : 30;
                     //source and destination
                     $imgSource = $_FILES['avatar']['tmp_name'];
-                    $imgDest = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/' . $userFileName;
+                    $prevalidated = (ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded') == 1 && !SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) ? '_':'';
+                    $imgDest = $path . $prevalidated . $userFileName;
                     //if success $errorMsg = ''
                     $errorMsg = ModUtil::func('IWmain', 'user', 'thumb', array('imgSource' => $imgSource,
                                 'imgDest' => $imgDest,

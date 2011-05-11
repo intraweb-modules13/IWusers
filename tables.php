@@ -16,7 +16,7 @@ function IWusers_tables() {
         'sex' => 'iw_sex',
         'description' => 'iw_description',
         'avatar' => 'iw_avatar',
-        'avatarvalidated' => 'iw_avatarvalidated',
+        'newavatar' => 'iw_newavatar',
     );
 
     $tables['IWusers_column_def'] = array('suid' => "I NOTNULL AUTO PRIMARY",
@@ -30,7 +30,7 @@ function IWusers_tables() {
         'sex' => "I(1) NOTNULL DEFAULT '0'",
         'description' => "X NOTNULL",
         'avatar' => "C(50) NOTNULL DEFAULT ''",
-        'avatarvalidated' => "I(1) NOTNULL DEFAULT '0'",
+        'newavatar' => "C(50) NOTNULL DEFAULT ''",
     );
 
     // IWusers table definition
