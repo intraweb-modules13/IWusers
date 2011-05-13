@@ -264,7 +264,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
             $items = array('uid' => UserUtil::getVar('uid'));
             // create user
             if (!DBUtil::insertObject($items, 'IWusers', 'suid')) {
-                return LogUtil::registerError(_CREATEFAILED);
+                return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
             }
         }
         $pntables = DBUtil::getTables();
@@ -278,6 +278,67 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         }
         return true;
     }
+
+    public function setSex($args) {
+        // Security check
+        if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ) || !ModUtil::getVar('IWusers', 'allowUserSetTheirSex') == 1) {
+            throw new Zikula_Exception_Forbidden();
+        }
+        $user = ModUtil::apiFunc('IWusers', 'user', 'get', array('uid' => UserUtil::getvar('uid')));
+        if (!$user) {
+            $items = array('uid' => UserUtil::getVar('uid'));
+            // create user
+            if (!DBUtil::insertObject($items, 'IWusers', 'suid')) {
+                return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
+            }
+        }
+        $pntables = DBUtil::getTables();
+        $c = $pntables['IWusers_column'];
+        $where = "WHERE $c[uid]=" . UserUtil::getVar('uid');
+        $item = array('sex' => $args['sex']);
+        if (!DBUtil::updateObject($item, 'IWusers', $where)) {
+            return LogUtil::registerError($this->__('Error! Update attempt failed.'));
+        }
+        return true;
+    }
+
+    public function changeDescription($args) {
+        // Security check
+        if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ) || !ModUtil::getVar('IWusers', 'allowUserDescribeTheirSelves') == 1) {
+            throw new Zikula_Exception_Forbidden();
+        }
+        $user = ModUtil::apiFunc('IWusers', 'user', 'get', array('uid' => UserUtil::getvar('uid')));
+        if (!$user) {
+            $items = array('uid' => UserUtil::getVar('uid'));
+            // create user
+            if (!DBUtil::insertObject($items, 'IWusers', 'suid')) {
+                return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
+            }
+        }
+        $pntables = DBUtil::getTables();
+        $c = $pntables['IWusers_column'];
+        $where = "WHERE $c[uid]=" . UserUtil::getVar('uid');
+        $item = array('description' => $args['description']);
+        if (!DBUtil::updateObject($item, 'IWusers', $where)) {
+            return LogUtil::registerError($this->__('Error! Update attempt failed.'));
+        }
+        return true;
+    }
+
+    /*
+      if (ModUtil::getVar('IWusers', 'allowUserSetTheirSex') == 1) {
+      if (!ModUtil::apiFunc('IWusers', 'user', 'setSex', array('sex' => $sex,
+      )))
+      $errorMsg = 'Changing the real name has failed.';
+      }
+
+
+      if (ModUtil::getVar('IWusers', 'allowUserDescribeTheirSelves') == 1) {
+      if (!ModUtil::apiFunc('IWusers', 'user', 'changeDescription', array('description' => $description,
+      )))
+      $errorMsg = 'Changing the real name has failed.';
+      }
+     */
 
     public function changeAvatar($args) {
         // Security check

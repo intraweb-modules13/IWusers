@@ -81,23 +81,20 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         $usersCanManageName = (ModUtil::getVar('IWusers', 'usersCanManageName') == 1) ? true : false;
         $allowUserSetTheirSex = (ModUtil::getVar('IWusers', 'allowUserSetTheirSex') == 1) ? true : false;
         $allowUserDescribeTheirSelves = (ModUtil::getVar('IWusers', 'allowUserDescribeTheirSelves') == 1) ? true : false;
- 
+
 
         $userSurname1 = '';
         $userSurname2 = '';
         if ($modinfo['state'] == 3) {
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $userName = ModUtil::func('IWmain', 'user', 'getUserInfo', array('uid' => UserUtil::getVar('uid'),
-                        'info' => 'n',
+            $userInfo = ModUtil::func('IWmain', 'user', 'getUserInfo', array('uid' => UserUtil::getVar('uid'),
+                        'info' => array('n', 'c1', 'c2', 'd', 's'),
                         'sv' => $sv));
-            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $userSurname1 = ModUtil::func('IWmain', 'user', 'getUserInfo', array('uid' => UserUtil::getVar('uid'),
-                        'info' => 'c1',
-                        'sv' => $sv));
-            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $userSurname2 = ModUtil::func('IWmain', 'user', 'getUserInfo', array('uid' => UserUtil::getVar('uid'),
-                        'info' => 'c2',
-                        'sv' => $sv));
+            $userName = $userInfo['n'];
+            $userSurname1 = $userInfo['c1'];
+            $userSurname2 = $userInfo['c2'];
+            $description = $userInfo['d'];
+            $sex = $userInfo['s'];
         }
 
         return $this->view->assign('avatarChangeValidationNeeded', ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded'))
@@ -110,6 +107,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                 ->assign('userName', $userName)
                 ->assign('userSurname1', $userSurname1)
                 ->assign('userSurname2', $userSurname2)
+                ->assign('description', $description)
+                ->assign('sex', $sex)
                 ->fetch('IWusers_user_profile.htm');
     }
 
@@ -118,6 +117,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         $userName = FormUtil::getPassedValue('userName', isset($args['userName']) ? $args['userName'] : null, 'POST');
         $userSurname1 = FormUtil::getPassedValue('userSurname1', isset($args['userSurname1']) ? $args['userSurname1'] : null, 'POST');
         $userSurname2 = FormUtil::getPassedValue('userSurname2', isset($args['userSurname2']) ? $args['userSurname2'] : null, 'POST');
+        $sex = FormUtil::getPassedValue('sex', isset($args['sex']) ? $args['sex'] : null, 'POST');
+        $description = FormUtil::getPassedValue('description', isset($args['description']) ? $args['description'] : null, 'POST');
 
         // Security check
         if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ) || !UserUtil::isLoggedIn()) {
@@ -145,7 +146,7 @@ class IWusers_Controller_User extends Zikula_AbstractController {
                     $new_width = ($i == 0) ? 90 : 30;
                     //source and destination
                     $imgSource = $_FILES['avatar']['tmp_name'];
-                    $prevalidated = (ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded') == 1 && !SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) ? '_':'';
+                    $prevalidated = (ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded') == 1 && !SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) ? '_' : '';
                     $imgDest = $path . $prevalidated . $userFileName;
                     //if success $errorMsg = ''
                     $errorMsg = ModUtil::func('IWmain', 'user', 'thumb', array('imgSource' => $imgSource,
@@ -176,6 +177,19 @@ class IWusers_Controller_User extends Zikula_AbstractController {
             if (!ModUtil::apiFunc('IWusers', 'user', 'changeRealName', array('userName' => $userName,
                         'userSurname1' => $userSurname1,
                         'userSurname2' => $userSurname2,
+                    )))
+                $errorMsg = 'Changing the real name has failed.';
+        }
+
+        if (ModUtil::getVar('IWusers', 'allowUserSetTheirSex') == 1) {
+            if (!ModUtil::apiFunc('IWusers', 'user', 'setSex', array('sex' => $sex,
+                    )))
+                $errorMsg = 'Changing the real name has failed.';
+        }
+
+
+        if (ModUtil::getVar('IWusers', 'allowUserDescribeTheirSelves') == 1) {
+            if (!ModUtil::apiFunc('IWusers', 'user', 'changeDescription', array('description' => $description,
                     )))
                 $errorMsg = 'Changing the real name has failed.';
         }

@@ -478,6 +478,7 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
                 'name' => $group['name'],
                 'checked' => $checked);
         }
+        $multizk = (isset($GLOBALS['PNConfig']['Multisites']['multi']) && $GLOBALS['PNConfig']['Multisites']['multi'] == 1) ? 1 : 0;
         return $this->view->assign('friendsSystemAvailable', $friendsSystemAvailable)
                 ->assign('invisibleGroupsInList', $invisibleGroupsInList)
                 ->assign('usersCanManageName', $usersCanManageName)
@@ -490,6 +491,8 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
                 ->assign('noPictureFolder', $noPictureFolder)
                 ->assign('noWriteablePictureFolder', $noWriteablePictureFolder)
                 ->assign('gdAvailable', $gdAvailable)
+                ->assign('documentRoot', ModUtil::getVar('IWmain', 'documentRoot'))
+                ->assign('multizk', $multizk)
                 ->fetch('IWusers_admin_config.htm');
     }
 

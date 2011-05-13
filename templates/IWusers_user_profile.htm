@@ -10,8 +10,8 @@
                 <label for="sex">{gt text="Sexe"}</label>
                 <select id="sex" name="sex">
                     <option value="0">{gt text="tria una opció..."}</option>
-                    <option value="M">{gt text="Home"}</option>
-                    <option value="F">{gt text="Dona"}</option>
+                    <option {if $sex eq 'M'}selected="selected"{/if} value="M">{gt text="Home"}</option>
+                    <option {if $sex eq 'F'}selected="selected"{/if} value="F">{gt text="Dona"}</option>
                 </select>
             </div>
         </fieldset>
@@ -76,8 +76,8 @@
         <fieldset>
             <legend>{gt text="Describe yourself"}</legend>
             <div class="z-formrow">
-                <label for="description">{gt text="La teva descripció"}</label>
-                <textarea rows="7" cols="70">{$description}</textarea>
+                <label for="description">{gt text="Your description"}</label>
+                <textarea id="description" name="description" rows="7" cols="70">{$description}</textarea>
             </div>
         </fieldset>
         {/if}

@@ -27,7 +27,7 @@ function IWusers_tables() {
         'cognom2' => "C(25) NOTNULL DEFAULT ''",
         'naixement' => "C(8) NOTNULL DEFAULT ''",
         'accio' => "I(1) NOTNULL DEFAULT '0'",
-        'sex' => "I(1) NOTNULL DEFAULT '0'",
+        'sex' => "C(1) NOTNULL DEFAULT ''",
         'description' => "X NOTNULL",
         'avatar' => "C(50) NOTNULL DEFAULT ''",
         'newavatar' => "C(50) NOTNULL DEFAULT ''",
