@@ -8,13 +8,16 @@ msgstr ""
 "serà donat/da de baixa de la intranetProject-Id-Version: Zikula 1.2.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-28 10:15+0100\n"
-"PO-Revision-Date: 2010-06-22 12:21+0100\n"
+"PO-Revision-Date: 2011-05-16 17:59+0100\n"
 "Last-Translator: \n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Intraweb <intraweb@xtec.cat>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
+"Project-Id-Version: IWusers\n"
+"X-Poedit-Language: Catalan\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: pnblocks/welcome.php:50
 msgid "Show a welcome message wend user is in home page"
@@ -967,4 +970,43 @@ msgstr "Per a \"Afegir un nou usuari/ària\" selecciona un nom d'usurari, una co
 #: pnadmin:1464
 msgid "For the \"Link to the user\", choose which user you want to associate"
 msgstr "Per a \"Enllaça a un usuari\", escull a quin usuari el vol associar"
+
+msgid "User configurable values"
+msgstr "Configuració del perfil personal"
+
+msgid "Your sex"
+msgstr "Indica el teu sexe"
+
+msgid "Sex"
+msgstr "Sexe"
+
+msgid "Choose an option..."
+msgstr "Tria una opció..."
+
+msgid "Mail"
+msgstr "Home"
+
+msgid "Femail"
+msgstr "Dona"
+
+msgid "Change your real name"
+msgstr "El teu nom i cognoms reals"
+
+msgid "Avatar replacement"
+msgstr "Canvi de la imatge del perfil o avatar"
+
+msgid "Upload your avatar"
+msgstr "Puja el teu avatar"
+
+msgid "(The avatar change required administrator validation)"
+msgstr "(El canvi de l'avatar requereix la validació d'un administrador/a)"
+
+msgid "Your avatar's image sizes must be 90x120 px aproximately with one of the next formats: jpg, gif or png."
+msgstr "La mida ideal per a la imatge de l'avatar és de 90x120 píxels en un dels formats següents: jpg, gif o png."
+
+msgid "Describe yourself"
+msgstr "Descripció personal"
+
+msgid "Your description"
+msgstr "La teva descripció"
 

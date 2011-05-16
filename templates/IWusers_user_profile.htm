@@ -3,19 +3,6 @@
 <form  class="z-form" enctype="multipart/form-data" method="post" name="conf" id="conf" action="{modurl modname='IWusers' type='user' func='updateprofile'}">
     <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
     <div>
-        {if $allowUserSetTheirSex}
-        <fieldset>
-            <legend>{gt text="Your sex"}</legend>
-            <div class="z-formrow">
-                <label for="sex">{gt text="Sex"}</label>
-                <select id="sex" name="sex">
-                    <option value="0">{gt text="tria una opció..."}</option>
-                    <option {if $sex eq 'M'}selected="selected"{/if} value="M">{gt text="Mail"}</option>
-                    <option {if $sex eq 'F'}selected="selected"{/if} value="F">{gt text="Femail"}</option>
-                </select>
-            </div>
-        </fieldset>
-        {/if}
         {if $usersCanManageName}
         <fieldset>
             <legend>{gt text="Change your real name"}</legend>
@@ -30,6 +17,19 @@
             <div class="z-formrow">
                 <label for="userSurname2">{gt text="2nd surname"}</label>
                 <input id="userSurname2" type="text" name="userSurname2" value="{$userSurname2}" />
+            </div>
+        </fieldset>
+        {/if}
+        {if $allowUserSetTheirSex}
+        <fieldset>
+            <legend>{gt text="Your sex"}</legend>
+            <div class="z-formrow">
+                <label for="sex">{gt text="Sex"}</label>
+                <select id="sex" name="sex">
+                    <option value="0">{gt text="Choose an option..."}</option>
+                    <option {if $sex eq 'M'}selected="selected"{/if} value="M">{gt text="Mail"}</option>
+                    <option {if $sex eq 'F'}selected="selected"{/if} value="F">{gt text="Femail"}</option>
+                </select>
             </div>
         </fieldset>
         {/if}
