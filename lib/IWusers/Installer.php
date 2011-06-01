@@ -11,8 +11,7 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
         }
         // Check if the version needed is correct
         $versionNeeded = '3.0.0';
-        if (!ModUtil::func('IWmain', 'admin', 'checkVersion',
-                        array('version' => $versionNeeded))) {
+        if (!ModUtil::func('IWmain', 'admin', 'checkVersion', array('version' => $versionNeeded))) {
             return false;
         }
         // Create module table
@@ -48,11 +47,13 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
         // Delete module table
         DBUtil::dropTable('IWusers');
         DBUtil::dropTable('IWusers_friends');
-        //Create module vars
+        //Delete module vars
         $this->delVar('friendsSystemAvailable')
                 ->delVar('invisibleGroupsInList')
                 ->delVar('usersCanManageName')
                 ->delVar('allowUserChangeAvatar')
+                ->delVar('allowUserSetTheirSex')
+                ->delVar('allowUserDescribeTheirSelves')
                 ->delVar('avatarChangeValidationNeeded')
                 ->delVar('usersPictureFolder');
 
@@ -66,6 +67,65 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
      * @return bool true if successful, false otherwise
      */
     function Upgrade($oldversion) {
+
+        $prefix = $GLOBALS['ZConfig']['System']['prefix'];
+
+        //Delete unneeded tables
+        DBUtil::dropTable('iw_users_aux');
+        DBUtil::dropTable('iw_users_import');
+
+        //Rename tables
+
+        if (!DBUtil::renameTable('iw_users', 'IWusers'))
+            return false;
+        if (!DBUtil::renameTable('iw_users_friends', 'IWusers_friends'))
+            return false;
+
+        // Add new columns
+        $c = "ALTER TABLE `{$prefix}_IWusers` ADD `iw_avatar` VARCHAR(50) NOT NULL";
+        if (!DBUtil::executeSQL($c))
+            return false;
+        $c = "ALTER TABLE `{$prefix}_IWusers` ADD `iw_newavatar` VARCHAR(50) NOT NULL";
+        if (!DBUtil::executeSQL($c))
+            return false;
+        $c = "ALTER TABLE `{$prefix}_IWusers` ADD `iw_sex` TINYINT( 4 ) NOT NULL DEFAULT '0'";
+        if (!DBUtil::executeSQL($c))
+            return false;
+
+        // Delete unneded columns
+        $c = array();
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_mobile` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_fix` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_parentsName` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_address` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_postal` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_identifyCard` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_refUser` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_sendSMS` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_active` ";
+        $c[] = "ALTER TABLE `{$prefix}_IWusers` DROP `iw_parentsEMail` ";
+        foreach ($c as $sql) {
+            DBUtil::executeSQL($sql);
+        }
+
+        // Modify column names
+        $c = array();
+        $c = "ALTER TABLE `{$prefix}_IWusers` CHANGE `zk_obj_status` `pn_obj_status` VARCHAR(1) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT \'A\'";
+        $c = "ALTER TABLE `{$prefix}_IWusers` CHANGE `zk_cr_date` `pn_cr_date` DATETIME NOT NULL DEFAULT \'1970-01-01 00:00:00\'";
+        $c = "ALTER TABLE `{$prefix}_IWusers` CHANGE `zk_cr_uid` `pn_cr_uid` INT(11) NOT NULL DEFAULT \'0\'";
+        $c = "ALTER TABLE `{$prefix}_IWusers` CHANGE `zk_lu_date` `pn_lu_date` DATETIME NOT NULL DEFAULT \'1970-01-01 00:00:00\'";
+        $c = "ALTER TABLE `{$prefix}_IWusers` CHANGE `zk_lu_uid` `pn_lu_uid` INT(11) NOT NULL DEFAULT \'0\'";
+
+        $c = "ALTER TABLE `{$prefix}_IWusers_friends` CHANGE `zk_obj_status` `pn_obj_status` VARCHAR(1) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT \'A\'";
+        $c = "ALTER TABLE `{$prefix}_IWusers_friends` CHANGE `zk_cr_date` `pn_cr_date` DATETIME NOT NULL DEFAULT \'1970-01-01 00:00:00\'";
+        $c = "ALTER TABLE `{$prefix}_IWusers_friends` CHANGE `zk_cr_uid` `pn_cr_uid` INT(11) NOT NULL DEFAULT \'0\'";
+        $c = "ALTER TABLE `{$prefix}_IWusers_friends` CHANGE `zk_lu_date` `pn_lu_date` DATETIME NOT NULL DEFAULT \'1970-01-01 00:00:00\'";
+        $c = "ALTER TABLE `{$prefix}_IWusers_friends` CHANGE `zk_lu_uid` `pn_lu_uid` INT(11) NOT NULL DEFAULT \'0\'";
+        foreach ($c as $sql) {
+            if (!DBUtil::executeSQL($sql))
+                return false;
+        }
+
         return true;
     }
 
