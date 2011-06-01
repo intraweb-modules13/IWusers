@@ -64,6 +64,7 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
     /**
      * Update the IWusers module
      * @author Albert Pérez Monfort (aperezm@xtec.cat)
+     * @author Jaume Fernàndez Valiente (jfern343@xtec.cat)
      * @return bool true if successful, false otherwise
      */
     function Upgrade($oldversion) {
@@ -126,6 +127,42 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
                 return false;
         }
 
+        // Update module_vars table
+        // Update the name (keeps old var value)
+        $c = "UPDATE {$prefix}_module_vars SET z_modname = 'IWforms' WHERE z_bkey = 'iw_forms'";
+        if (!DBUtil::executeSQL($c)) {
+            return false;
+        }
+
+        //Array de noms
+        $oldVarsNames = DBUtil::selectFieldArray("module_vars", 'name', "`z_modname` = 'IWforms'", '', false, '');
+
+        $newVarsNames = Array('friendsSystemAvailable', 'invisibleGroupsInList', 'usersCanManageName',
+            'allowUserChangeAvatar', 'allowUserSetTheirSex', 'allowUserDescribeTheirSelves', 
+            'avatarChangeValidationNeeded', 'usersPictureFolder');
+             
+        $newVars = Array('friendsSystemAvailable' => 1,
+            'invisibleGroupsInList' => '$',
+            'usersCanManageName' => 0,
+            'allowUserChangeAvatar' => '1',
+            'allowUserSetTheirSex', '0',
+            'allowUserDescribeTheirSelves' => '1',
+            'avatarChangeValidationNeeded' => '1',
+            'usersPictureFolder' => 'photos');
+
+        // Delete unneeded vars
+        $del = array_diff($oldVarsNames, $newVarsNames);
+        foreach ($del as $i) {
+            $this->delVar($i);
+        }
+
+        // Add new vars
+        $add = array_diff($newVarsNames, $oldVarsNames);
+        foreach ($add as $i) {
+            $this->setVar($i, $newVars[$i]);
+        }
+        
+        
         return true;
     }
 
