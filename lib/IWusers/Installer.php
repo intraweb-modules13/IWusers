@@ -145,7 +145,7 @@ class IWusers_Installer extends Zikula_AbstractInstaller {
             'invisibleGroupsInList' => '$',
             'usersCanManageName' => 0,
             'allowUserChangeAvatar' => '1',
-            'allowUserSetTheirSex', '0',
+            'allowUserSetTheirSex' => '0',
             'allowUserDescribeTheirSelves' => '1',
             'avatarChangeValidationNeeded' => '1',
             'usersPictureFolder' => 'photos');
