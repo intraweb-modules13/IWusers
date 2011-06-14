@@ -14,7 +14,6 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         if ($filtre == '0') {
             $filtre = '';
         }
-        print $inici;
         $myJoin = array();
         $myJoin[] = array('join_table' => 'users',
             'join_field' => array('uid'),
