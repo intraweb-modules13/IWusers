@@ -14,6 +14,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         if ($filtre == '0') {
             $filtre = '';
         }
+        print $inici;
         $myJoin = array();
         $myJoin[] = array('join_table' => 'users',
             'join_field' => array('uid'),
@@ -45,7 +46,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
                 $where = "b.$ocolumn[uid] = a.$ccolumn[uid] AND a.$ccolumn[uname] like '" . $filtre . "%'";
                 $orderby = "order by a.$ccolumn[uname]";
         }
-        $items = DBUtil::selectExpandedObjectArray('IWusers', $myJoin, $where, $orderby, $inici, $numitems, 'uid');
+        $items = DBUtil::selectExpandedObjectArray('IWusers', $myJoin, $where, $orderby, $inici-1, $numitems, 'uid');
         // Check for an error with the database code, and if so set an appropriate
         // error message and return
         if ($items === false) {

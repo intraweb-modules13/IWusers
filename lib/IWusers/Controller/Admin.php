@@ -157,10 +157,8 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         $view = Zikula_View::getInstance('IWusers', false);
         $leters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-        $pager = ModUtil::func('IWusers', 'admin', 'pager', array('inici' => $inici,
-                    'rpp' => $numitems,
-                    'usersNumber' => $usersNumber,
-                    'urltemplate' => 'index.php?module=IWusers&type=admin&func=main&inici=%%'));
+        $pager = array('numitems' => $usersNumber,
+            'itemsperpage' => $numitems);
         $numitems_MS = array(array('id' => '10',
                 'name' => '10'),
             array('id' => '20',
@@ -360,82 +358,6 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
 
         LogUtil::registerStatus($this->__('The records have been published successfully'));
         return System::redirect(ModUtil::url('IWusers', 'admin', 'main'));
-    }
-
-    /**
-     * Create a pager for the users admin main page
-     * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
-     * @param:	args   Array with the apameters of the current page
-     * @return:	Return the pager
-     */
-    public function pager($args) {
-
-        $inici = FormUtil::getPassedValue('inici', isset($args['inici']) ? $args['inici'] : null, 'POST');
-        $rpp = FormUtil::getPassedValue('rpp', isset($args['rpp']) ? $args['rpp'] : null, 'POST');
-        $usersNumber = FormUtil::getPassedValue('usersNumber', isset($args['usersNumber']) ? $args['usersNumber'] : null, 'POST');
-        $urltemplate = FormUtil::getPassedValue('urltemplate', isset($args['urltemplate']) ? $args['urltemplate'] : null, 'POST');
-
-        // Security check
-        if (!SecurityUtil::checkPermission('IWusers::', '::', ACCESS_ADMIN)) {
-            throw new Zikula_Exception_Forbidden();
-        }
-
-        // Quick check to ensure that we have work to do
-        if ($usersNumber <= $rpp) {
-            return;
-        }
-
-        if (!isset($inici) || empty($inici)) {
-            $inici = 0;
-        }
-
-        if (!isset($rpp) || empty($rpp)) {
-            $rpp = 10;
-        }
-
-        // Show startnum link
-        if ($inici != 0) {
-            $url = preg_replace('/%%/', 0, $urltemplate);
-            $text = '<a href="' . $url . '"><<</a> | ';
-        } else {
-            $text = '<< | ';
-        }
-        $items[] = array('text' => $text);
-
-        // Show following items
-        $pagenum = 1;
-
-        for ($curnum = 0; $curnum <= $usersNumber - 1; $curnum += $rpp) {
-            if (($inici < $curnum) || ($inici > ($curnum + $rpp - 1))) {
-                //mod by marsu - use sliding window for pagelinks
-                if ((($pagenum % 10) == 0) // link if page is multiple of 10
-                        || ($pagenum == 1) // link first page
-                        || (($curnum > ($inici - 4 * $rpp)) //link -3 and +3 pages
-                        && ($curnum < ($inici + 4 * $rpp)))
-                ) {
-                    // Not on this page - show link
-                    $url = preg_replace('/%%/', $curnum, $urltemplate);
-                    $text = '<a href="' . $url . '">' . $pagenum . '</a> | ';
-                    $items[] = array('text' => $text);
-                }
-                //end mod by marsu
-            } else {
-                // On this page - show text
-                $text = $pagenum . ' | ';
-                $items[] = array('text' => $text);
-            }
-            $pagenum++;
-        }
-
-        if (($curnum >= $rpp + 1) && ($inici < $curnum - $rpp)) {
-            $url = preg_replace('/%%/', $curnum - $rpp, $urltemplate);
-            $text = '<a href="' . $url . '">>></a>';
-        } else
-            $text = '>>';
-        $items[] = array('text' => $text);
-
-        $this->view->assign('items', $items)
-                ->fetch('IWusers_admin_pager.htm');
     }
 
     /**
