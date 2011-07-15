@@ -155,10 +155,10 @@ function change(uid,text,toDo){
     resposta=confirm(text);
     if (resposta) {
         if(toDo == 'ch'){
-            //showinfo(chid, changingAvatar);
+            //show_info(chid, changingAvatar);
             var pars = "module=IWusers&func=change&uid=" + uid + "&toDo=ch";
         }else{
-            //showinfo(chid, deletingAvatar);
+            //show_info(chid, deletingAvatar);
             var pars = "module=IWusers&func=change&uid=" + uid + "&toDo=del";
         }
         var myAjax = new Ajax.Request("ajax.php", {
