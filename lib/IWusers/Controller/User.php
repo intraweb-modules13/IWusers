@@ -48,8 +48,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
             }
         }
         return $this->view->assign('groups', $groups)
-                ->assign('all', $all)
-                ->fetch('IWusers_user_main.htm');
+                        ->assign('all', $all)
+                        ->fetch('IWusers_user_main.htm');
     }
 
     public function profile() {
@@ -98,18 +98,18 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         }
 
         return $this->view->assign('avatarChangeValidationNeeded', ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded'))
-                ->assign('photo', $photo)
-                ->assign('photo_s', $photo_s)
-                ->assign('canChangeAvatar', $canChangeAvatar)
-                ->assign('usersCanManageName', $usersCanManageName)
-                ->assign('allowUserSetTheirSex', $allowUserSetTheirSex)
-                ->assign('allowUserDescribeTheirSelves', $allowUserDescribeTheirSelves)
-                ->assign('userName', $userName)
-                ->assign('userSurname1', $userSurname1)
-                ->assign('userSurname2', $userSurname2)
-                ->assign('description', $description)
-                ->assign('sex', $sex)
-                ->fetch('IWusers_user_profile.htm');
+                        ->assign('photo', $photo)
+                        ->assign('photo_s', $photo_s)
+                        ->assign('canChangeAvatar', $canChangeAvatar)
+                        ->assign('usersCanManageName', $usersCanManageName)
+                        ->assign('allowUserSetTheirSex', $allowUserSetTheirSex)
+                        ->assign('allowUserDescribeTheirSelves', $allowUserDescribeTheirSelves)
+                        ->assign('userName', $userName)
+                        ->assign('userSurname1', $userSurname1)
+                        ->assign('userSurname2', $userSurname2)
+                        ->assign('description', $description)
+                        ->assign('sex', $sex)
+                        ->fetch('IWusers_user_profile.htm');
     }
 
     public function updateprofile($args) {
@@ -248,6 +248,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         if (!SecurityUtil::checkPermission('IWusers::', "::", ACCESS_READ)) {
             throw new Zikula_Exception_Forbidden();
         }
+
+        $usersArray = array();
 
         //Check if user belongs to the group
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
