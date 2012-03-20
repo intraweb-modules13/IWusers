@@ -1,24 +1,19 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: intraweb <intraweb@xtec.cat>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-msgid ""
-msgstr ""
-"serà donat/da de baixa de la intranetProject-Id-Version: Zikula 1.2.x\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 10:15+0100\n"
-"PO-Revision-Date: 2011-05-16 17:59+0100\n"
-"Last-Translator: \n"
-"Language-Team: Intraweb <intraweb@xtec.cat>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: IWusers\n"
-"X-Poedit-Language: Catalan\n"
-"X-Poedit-Country: SPAIN\n"
-"X-Poedit-SourceCharset: utf-8\n"
-
 #: pnblocks/welcome.php:50
 msgid "Show a welcome message wend user is in home page"
 msgstr "Mostra un missatge de salutació quan l'usuari/ària està a la pàgina d'inici"
@@ -981,7 +976,7 @@ msgid "Sex"
 msgstr "Sexe"
 
 msgid "Choose an option..."
-msgstr "Tria una opció..."
+msgstr "Trieu una opció..."
 
 msgid "Mail"
 msgstr "Home"
@@ -1009,4 +1004,58 @@ msgstr "Descripció personal"
 
 msgid "Your description"
 msgstr "La teva descripció"
+
+msgid "Users can manage their real names"
+msgstr "Els usuaris poden gestionar el seu nom real"
+
+msgid "Users can set their sex"
+msgstr "Els usuaris poden establir el genere (masculí/femení)"
+
+msgid "Users can describe theirselves"
+msgstr "Els usuaris es poden descriure a ells mateixos"
+
+msgid "Folder where to look for the users pictures"
+msgstr "Carpeta dels àvatars dels usuaris"
+
+msgid "Users pictures directori hasn't been found"
+msgstr "No s'ha tronat la carpeta dels àvatars dels usuaris"
+
+msgid "The users can not change theirs avatars because the directori of pictures does not exist or it has not the correct permissions."
+msgstr "Els usuaris no poden canviar el seu àvatar degut a que el directori d'avatars no existeix o no té els permisos correctes."
+
+msgid "Avatar change request"
+msgstr "Solicituds de canvi d'avatar"
+
+msgid "This folder is not writeable."
+msgstr "No es pot escriure en aquest directori"
+
+msgid "It has not worked (only visible for administrators)."
+msgstr "No ha funcionat (Només ho veuen els administradors)."
+
+msgid "The users can change theirs avatars"
+msgstr "Els usuaris poden canviar el seu avatar"
+
+msgid "The avatar replacement needs validation"
+msgstr "El canvi d'avatar requereix validació"
+
+msgid "User"
+msgstr "Usuari/ària"
+
+msgid "Current avatar"
+msgstr "Àvatar actual"
+
+msgid "New avatar"
+msgstr "Àvatar nou"
+
+msgid "Not requests found"
+msgstr "No s'han trobat sol·licituds"
+
+msgid "The values have changed correctly"
+msgstr "Els valors s'han canviat correctament"
+
+msgid "If you want, you can change your avatar from here:"
+msgstr "Si voleu us podeu canviar àvatar des d'aquí:"
+
+msgid "OK"
+msgstr "D'acord"
 
