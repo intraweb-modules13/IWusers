@@ -970,10 +970,10 @@ msgid "User configurable values"
 msgstr "Configuració del perfil personal"
 
 msgid "Your sex"
-msgstr "Indica el teu sexe"
+msgstr "Indica el teu génere"
 
 msgid "Sex"
-msgstr "Sexe"
+msgstr "Génere"
 
 msgid "Choose an option..."
 msgstr "Trieu una opció..."
