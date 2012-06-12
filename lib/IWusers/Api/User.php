@@ -45,7 +45,7 @@ class IWusers_Api_User extends Zikula_AbstractApi {
                 $where = "b.$ocolumn[uid] = a.$ccolumn[uid] AND a.$ccolumn[uname] like '" . $filtre . "%'";
                 $orderby = "order by a.$ccolumn[uname]";
         }
-        $items = DBUtil::selectExpandedObjectArray('IWusers', $myJoin, $where, $orderby, $inici-1, $numitems, 'uid');
+        $items = DBUtil::selectExpandedObjectArray('IWusers', $myJoin, $where, $orderby, $inici - 1, $numitems, 'uid');
         // Check for an error with the database code, and if so set an appropriate
         // error message and return
         if ($items === false) {
@@ -368,6 +368,9 @@ class IWusers_Api_User extends Zikula_AbstractApi {
         }
         if (SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ) && ModUtil::getVar('IWusers', 'friendsSystemAvailable') == 1) {
             $links[] = array('url' => ModUtil::url('IWusers', 'user', 'members', array('gid' => -1)), 'text' => $this->__('Show contacts\' list'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-view');
+        }
+        if (SecurityUtil::checkPermission('IWusers::', '::', ACCESS_READ))  {
+            $links[] = array('url' => ModUtil::url('IWusers', 'user', 'profile'), 'text' => $this->__('Edit profile'), 'id' => 'iwusers_main', 'class' => 'z-icon-es-config');
         }
         return $links;
     }

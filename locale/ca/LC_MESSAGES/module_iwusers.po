@@ -1059,3 +1059,6 @@ msgstr "Si voleu us podeu canviar àvatar des d'aquí:"
 msgid "OK"
 msgstr "D'acord"
 
+msgid "Edit profile"
+msgstr "Edita el perfil"
+
