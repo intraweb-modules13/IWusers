@@ -43,7 +43,7 @@
                     <input type="checkbox" name="deleteAvatar" value="1" />{gt text="Delete"}
                 </div>
                 {else}
-                {img modname='IWusers' src='noImage.png' set='images'}
+                {img modname='IWusers' src='noImage.png'}
                 {/if}
             </div>
             <div style="float:left; padding-left: 20px;">
@@ -83,6 +83,8 @@
         {/if}
     </div>
     <div class="z-center z-buttons">
-        <a onclick="javascript: forms['conf'].submit();">{img modname='core' src='button_ok.png' set='icons/small' __alt="OK" __title="OK"} {gt text="OK"}</a>
+        <a onclick="javascript: forms['conf'].submit();">
+            {img modname='core' src='button_ok.png' set='icons/small' __alt="OK" __title="OK"} {gt text="OK"}
+        </a>
     </div>
 </form>
