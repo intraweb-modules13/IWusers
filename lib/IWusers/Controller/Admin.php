@@ -471,6 +471,7 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
         }
         $path = ModUtil::getVar('IWusers', 'usersPictureFolder') . '/';
         $usersList = '';
+        $users = array();
 
         //print_r($avatars);
         foreach ($avatars as $avatar) {
