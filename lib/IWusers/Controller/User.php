@@ -26,6 +26,12 @@ class IWusers_Controller_User extends Zikula_AbstractController {
             }
             $all = true;
         }
+
+        // @aginard: If user is not logged in, redirect to log-in page
+        if (is_null(UserUtil::getVar('uid'))) {
+            throw new Zikula_Exception_Forbidden();
+        }
+
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         $userGroups = ModUtil::func('IWmain', 'user', 'getAllUserGroups', array('sv' => $sv));
         // Gets the groups
@@ -48,8 +54,8 @@ class IWusers_Controller_User extends Zikula_AbstractController {
             }
         }
         return $this->view->assign('groups', $groups)
-                        ->assign('all', $all)
-                        ->fetch('IWusers_user_main.htm');
+                    ->assign('all', $all)
+                    ->fetch('IWusers_user_main.htm');
     }
 
     public function profile() {
@@ -301,7 +307,7 @@ class IWusers_Controller_User extends Zikula_AbstractController {
         // Get groups information
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         $groupsInfo = ModUtil::func('IWmain', 'user', 'getAllGroupsInfo', array('sv' => $sv));
-        $folder = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWmain', 'usersPictureFolder');
+        $folder = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder');
         foreach ($members as $member) {
             //get the user small photo
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
