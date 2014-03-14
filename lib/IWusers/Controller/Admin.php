@@ -267,7 +267,7 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
      */
     public function update($args) {
 
-        $uid = FormUtil::getPassedValue('uid', isset($args) ? $args : null, 'POST');
+        $uid = FormUtil::getPassedValue('uidp', isset($args) ? $args : null, 'POST');
         $nom = FormUtil::getPassedValue('nom', isset($args) ? $args : null, 'POST');
         $cognom1 = FormUtil::getPassedValue('cognom1', isset($args) ? $args : null, 'POST');
         $cognom2 = FormUtil::getPassedValue('cognom2', isset($args) ? $args : null, 'POST');
@@ -301,10 +301,14 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
                     'list' => $usersList));
 
         $folder = ModUtil::getVar('IWmain', 'tempFolder');
-
+		$path = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'usersPictureFolder') . '/';
         //update avatars
         foreach ($uid as $u) {
             if ($deleteAvatar[$u] != 1) {
+
+/* ////TODO Create common functions to avatar managing from user and admin
+///////This is the old code (with some problems) and the new one takes the user function way...
+
                 $user = 'avatar_' . $u;
                 $nom_fitxer = '';
                 $fileName = $_FILES['avatar_' . $u]['name'];
@@ -347,12 +351,45 @@ class IWusers_Controller_Admin extends Zikula_AbstractController {
 
                     //delete the avatar file in temporal folder
                     unlink(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWusers', 'tempFolder') . '/' . $nom_fitxer);
+///////////////////////
+*/
+            //gets the attached file array
+                $fileName = $_FILES['avatar_' . $u]['name'];
+                $file_extension = strtolower(substr(strrchr($fileName, "."), 1));
+                if ($file_extension != 'png' && $file_extension != 'gif' && $file_extension != 'jpg' && $fileName != '') {
+                    $errorMsg = $this->__('The information has been modified, but the uplaod of the avatar has failed because the file extension is not allowed. The allowed extensions are: png, jpg and gif');
+                    $fileName = '';
                 }
+                // update the attached file to the server
+                if ($fileName != '') {
+                    for ($i = 0; $i < 2; $i++) {
+                        $fileAvatarName = UserUtil::getVar('uname',$u);
+                        $userFileName = ($i == 0) ? $fileAvatarName . '.' . $file_extension : $fileAvatarName . '_s.' . $file_extension;
+                        $new_width = ($i == 0) ? 90 : 30;
+                        //source and destination
+                        $imgSource = $_FILES['avatar_' . $u]['tmp_name'];
+                        $prevalidated = (ModUtil::getVar('IWusers', 'avatarChangeValidationNeeded') == 1 && !SecurityUtil::checkPermission('IWusers::', "::", ACCESS_ADMIN)) ? '_' : '';
+                        $imgDest = $path . $prevalidated . $userFileName;
+                        //if success $errorMsg = ''
+                        $errorMsg = ModUtil::func('IWmain', 'user', 'thumb', array('imgSource' => $imgSource,
+                                'imgDest' => $imgDest,
+                                'new_width' => $new_width,
+                                'imageName' => $fileName));
+                        if ($errorMsg == '') {
+                            // save user avatar extension
+                            if (!ModUtil::apiFunc('IWusers', 'user', 'changeAvatar', array('avatar' => UserUtil::getVar('uname',$u) . '.' . $file_extension,
+                                )))
+                            $errorMsg = 'Changing the avatar has failed.';
+                        }
+                    }
+                }
+                
             } else {
                 ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => $usersNames[$u],
                     'extensions' => array('jpg', 'png', 'gif')));
                 ModUtil::func('IWusers', 'user', 'deleteAvatar', array('avatarName' => $usersNames[$u] . '_s',
                     'extensions' => array('jpg', 'png', 'gif')));
+				ModUtil::apiFunc('IWusers', 'user', 'changeAvatar', array('target' => 'avatar', 'uid' => $u,'avatar' => ''));
             }
         }
 
