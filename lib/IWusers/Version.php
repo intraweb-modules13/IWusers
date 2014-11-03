@@ -10,7 +10,7 @@ class IWusers_Version extends Zikula_AbstractVersion
         $meta['securityschema'] = array('IWusers::' => '::');
         /*
         $meta['dependencies'] = array(array('modname' => 'IWmain',
-                                            'minversion' => '3.0.0',
+                                            'minversion' => '3.0.1',
                                             'maxversion' => '',
                                             'status' => ModUtil::DEPENDENCY_REQUIRED));
          *
